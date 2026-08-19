@@ -28,10 +28,6 @@ export const navigation = [
     href: "/about",
   },
   {
-    title: "مقالات",
-    href: "/articles",
-  },
-  {
     title: "تماس با ما",
     href: "/contact",
   },

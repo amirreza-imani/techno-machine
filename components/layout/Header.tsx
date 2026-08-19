@@ -14,13 +14,12 @@ const navigation = [
   { title: "خدمات", href: "/services" },
   { title: "پروژه‌ها", href: "/projects" },
   { title: "درباره ما", href: "/about" },
-  { title: "مقالات", href: "/articles" },
   { title: "تماس با ما", href: "/contact" },
 ];
 
 export default function Header() {
-  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -70,6 +69,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={active ? "page" : undefined}
                   className={`group relative py-7 text-sm font-semibold transition-colors ${
                     active
                       ? "text-brand-gold"
@@ -127,7 +127,7 @@ export default function Header() {
         <div
           className={`overflow-hidden transition-all duration-300 lg:hidden ${
             isMenuOpen
-              ? "max-h-[600px] border-t border-gray-100 opacity-100"
+              ? "max-h-[500px] border-t border-gray-100 opacity-100"
               : "max-h-0 opacity-0"
           }`}
         >
@@ -140,19 +140,14 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMenu}
+                  aria-current={active ? "page" : undefined}
                   className={`border-b border-gray-100 px-2 py-4 text-sm font-semibold transition-colors last:border-0 ${
                     active
                       ? "text-brand-gold"
                       : "text-gray-700 hover:text-brand-gold"
                   }`}
                 >
-                  <span className="flex items-center justify-between">
-                    {item.title}
-
-                    {active && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
-                    )}
-                  </span>
+                  {item.title}
                 </Link>
               );
             })}
