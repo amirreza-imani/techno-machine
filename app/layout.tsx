@@ -47,7 +47,8 @@ export default function RootLayout({
         <TopBar />
 
         <Header />
-        <main>{children}</main>
+
+        {children}
 
         <Footer />
       </body>

@@ -1,11 +1,3 @@
-export const siteConfig = {
-  name: "تکنو ماشین صنعت",
-  shortName: "تکنو ماشین",
-  phone: "۰۲۱-۰۰۰۰۰۰۰۰",
-  email: "info@technomachine.ir",
-  address: "تهران، ایران",
-};
-
 export const navigation = [
   {
     title: "صفحه اصلی",
@@ -14,6 +6,10 @@ export const navigation = [
   {
     title: "محصولات",
     href: "/products",
+  },
+  {
+    title: "قطعات",
+    href: "/parts",
   },
   {
     title: "خدمات",
