@@ -5,6 +5,7 @@ import Container from "@/components/Container";
 const quickLinks = [
   { title: "صفحه اصلی", href: "/" },
   { title: "محصولات", href: "/products" },
+  { title: "قطعات", href: "/parts" },
   { title: "خدمات", href: "/services" },
   { title: "پروژه‌ها", href: "/projects" },
   { title: "درباره ما", href: "/about" },

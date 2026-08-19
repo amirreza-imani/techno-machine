@@ -38,9 +38,7 @@ export default function Hero() {
             {/* Heading */}
             <h1 className="text-4xl font-black leading-[1.3] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
               تجهیزات خردایش و{" "}
-              <span className="text-brand-gold">
-                دانه‌بندی
-              </span>
+              <span className="text-brand-gold">دانه‌بندی</span>
             </h1>
 
             {/* Description */}
