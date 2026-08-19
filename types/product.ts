@@ -1,14 +1,50 @@
-export interface Product {
+export type StrapiMedia = {
+  id: number;
+  documentId?: string;
+  name: string;
+  alternativeText?: string | null;
+  caption?: string | null;
+  width?: number | null;
+  height?: number | null;
+  url: string;
+  formats?: {
+    thumbnail?: StrapiMediaFormat;
+    small?: StrapiMediaFormat;
+    medium?: StrapiMediaFormat;
+    large?: StrapiMediaFormat;
+  };
+};
+
+export type StrapiMediaFormat = {
+  name?: string;
+  hash?: string;
+  ext?: string;
+  mime?: string;
+  width: number;
+  height: number;
+  size: number;
+  url: string;
+};
+
+export type Product = {
   id: number;
   documentId: string;
   title: string;
   slug: string;
   shortDescription: string;
-  description?: string;
   featured: boolean;
-}
+  image?: StrapiMedia | null;
+  gallery?: StrapiMedia[] | null;
+};
 
-export interface StrapiResponse<T> {
+export type StrapiResponse<T> = {
   data: T;
-  meta?: Record<string, unknown>;
-}
+  meta?: {
+    pagination?: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+};

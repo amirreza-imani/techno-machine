@@ -2,148 +2,102 @@ import Link from "next/link";
 
 import Container from "@/components/Container";
 import { navigation } from "@/lib/site";
+import { getSiteSettings } from "@/lib/strapi";
 
-const contactItems = [
-  {
-    label: "تلفن",
-    value: "۰۲۱-۱۲۳۴۵۶۷۸",
-    href: "tel:+982112345678",
-  },
-  {
-    label: "ایمیل",
-    value: "info@technomachine.ir",
-    href: "mailto:info@technomachine.ir",
-  },
-];
+export default async function Footer() {
+  const settings = await getSiteSettings();
 
-export default function Footer() {
+  const phone = settings?.phone || "021-88776655";
+  const email = settings?.email || "info@technomachine.ir";
+
+  const address =
+    settings?.address || "تهران، خیابان ولیعصر، دفتر مرکزی تکنو ماشین صنعت";
+
+  const workingHours =
+    settings?.workingHours || "شنبه تا چهارشنبه، ۸:۰۰ تا ۱۷:۰۰";
+
+  const description =
+    settings?.footerDescription ||
+    "تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی، همراه با خدمات فنی و مهندسی.";
+
   return (
-    <footer dir="rtl" className="bg-brand-black text-white">
-      {/* Main Footer */}
-      <div className="border-b border-white/10">
-        <Container>
-          <div className="grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
-            {/* Brand */}
-            <div>
-              <Link
-                href="/"
-                className="inline-flex items-center gap-3"
-                aria-label="تکنو ماشین صنعت"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-white text-lg font-black text-brand-black">
-                  TM
-                </div>
+    <footer
+      dir="rtl"
+      className="border-t border-white/10 bg-brand-black text-white"
+    >
+      <Container>
+        <div className="grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-lg font-black text-brand-black">
+                TM
+              </div>
 
-                <div className="leading-none">
-                  <div className="text-sm font-black text-white">
-                    تکنو ماشین
-                  </div>
-
-                  <div className="mt-1 text-[11px] font-bold text-brand-gold">
-                    صنعت
-                  </div>
-                </div>
-              </Link>
-
-              <p className="mt-4 max-w-sm text-xs leading-6 text-white/50">
-                ارائه‌دهنده ماشین‌آلات، تجهیزات و راهکارهای تخصصی برای صنایع
-                معدنی و صنعتی.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h2 className="mb-4 text-xs font-black text-white">
-                دسترسی سریع
-              </h2>
-
-              <nav aria-label="دسترسی سریع">
-                <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
-                  {navigation.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className="text-xs text-white/50 transition-colors hover:text-brand-gold"
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-
-            {/* Services */}
-            <div>
-              <h2 className="mb-4 text-xs font-black text-white">
-                حوزه فعالیت
-              </h2>
-
-              <ul className="space-y-2 text-xs text-white/50">
-                <li>ماشین‌آلات صنعتی</li>
-                <li>تجهیزات معدنی</li>
-                <li>تأمین قطعات</li>
-                <li>خدمات فنی و مهندسی</li>
-                <li>پروژه‌های صنعتی</li>
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h2 className="mb-4 text-xs font-black text-white">
-                ارتباط با ما
-              </h2>
-
-              <div className="space-y-3">
-                {contactItems.map((item) => (
-                  <div key={item.label}>
-                    <span className="ml-2 text-[10px] font-bold text-brand-gold">
-                      {item.label}
-                    </span>
-
-                    <a
-                      href={item.href}
-                      className="text-xs text-white/60 transition-colors hover:text-white"
-                    >
-                      {item.value}
-                    </a>
-                  </div>
-                ))}
-
-                <div>
-                  <span className="ml-2 text-[10px] font-bold text-brand-gold">
-                    آدرس
-                  </span>
-
-                  <span className="text-xs leading-6 text-white/50">
-                    تهران، خیابان ...، پلاک ...
-                  </span>
+              <div>
+                <div className="text-sm font-black">تکنو ماشین</div>
+                <div className="mt-1 text-xs font-bold text-brand-gold">
+                  صنعت
                 </div>
               </div>
             </div>
-          </div>
-        </Container>
-      </div>
 
-      {/* Bottom Bar */}
-      <Container>
-        <div className="flex min-h-14 flex-col items-center justify-center gap-2 py-3 text-[10px] text-white/35 sm:flex-row sm:justify-between">
+            <p className="mt-5 max-w-md text-sm leading-7 text-white/50">
+              {description}
+            </p>
+          </div>
+
+          {/* Navigation */}
+          <div>
+            <h3 className="mb-5 text-sm font-black text-white">دسترسی سریع</h3>
+
+            <nav className="grid grid-cols-2 gap-x-5 gap-y-3">
+              {navigation.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-xs text-white/50 transition-colors hover:text-brand-gold"
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="mb-5 text-sm font-black text-white">اطلاعات تماس</h3>
+
+            <div className="space-y-3 text-xs text-white/50">
+              <a
+                href={`tel:${phone}`}
+                dir="ltr"
+                className="block transition-colors hover:text-brand-gold"
+              >
+                {phone}
+              </a>
+
+              <a
+                href={`mailto:${email}`}
+                dir="ltr"
+                className="block transition-colors hover:text-brand-gold"
+              >
+                {email}
+              </a>
+
+              <p className="leading-6">{address}</p>
+
+              <p>{workingHours}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 border-t border-white/10 py-5 text-xs text-white/30 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} تکنو ماشین صنعت. تمامی حقوق محفوظ است.
           </p>
 
-          <div className="flex items-center gap-5">
-            <Link href="/" className="transition-colors hover:text-brand-gold">
-              صفحه اصلی
-            </Link>
-
-            <Link
-              href="/contact"
-              className="transition-colors hover:text-brand-gold"
-            >
-              تماس با ما
-            </Link>
-          </div>
+          <p>طراحی و توسعه با رویکرد صنعتی</p>
         </div>
       </Container>
     </footer>

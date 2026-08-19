@@ -11,23 +11,34 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "Phone": {
+    "phone": {
       "type": "string",
       "required": true
     },
-    "Email": {
+    "email": {
       "type": "email"
     },
-    "Subject": {
+    "subject": {
       "type": "string",
       "required": true
     },
-    "Message": {
+    "message": {
       "type": "text"
+    },
+    "requestStatus": {
+      "type": "enumeration",
+      "default": "new",
+      "enum": [
+        "new",
+        "contacted",
+        "in-progress",
+        "completed",
+        "cancelled"
+      ]
     }
   }
 }

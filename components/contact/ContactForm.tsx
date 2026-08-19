@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-
+import { useSearchParams } from "next/navigation";
 const initialForm = {
   name: "",
   phone: "",
@@ -11,18 +11,57 @@ const initialForm = {
 };
 
 export default function ContactForm() {
-  const [form, setForm] = useState(initialForm);
+  const searchParams = useSearchParams();
+
+  const productFromUrl = searchParams.get("product") || "";
+
+  const [form, setForm] = useState({
+    ...initialForm,
+    subject: productFromUrl ? `استعلام قیمت - ${productFromUrl}` : "",
+  });
+
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
 
   const [feedback, setFeedback] = useState("");
 
+  const updateField = (field: keyof typeof form, value: string) => {
+    setForm((previous) => ({
+      ...previous,
+      [field]: value,
+    }));
+
+    if (status !== "idle") {
+      setStatus("idle");
+      setFeedback("");
+    }
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setStatus("loading");
+    if (status === "loading") {
+      return;
+    }
+
     setFeedback("");
+
+    const normalizedPhone = form.phone.replace(/\s/g, "").replace(/-/g, "");
+
+    if (!/^09\d{9}$/.test(normalizedPhone)) {
+      setStatus("error");
+      setFeedback("لطفاً یک شماره موبایل معتبر وارد کنید. مثال: 09123456789");
+      return;
+    }
+
+    if (form.message.trim().length < 10) {
+      setStatus("error");
+      setFeedback("لطفاً توضیحات درخواست را کامل‌تر وارد کنید.");
+      return;
+    }
+
+    setStatus("loading");
 
     try {
       const response = await fetch("/api/contact", {
@@ -30,7 +69,14 @@ export default function ContactForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          phone: normalizedPhone,
+          name: form.name.trim(),
+          email: form.email.trim(),
+          subject: form.subject.trim(),
+          message: form.message.trim(),
+        }),
       });
 
       const result = await response.json();
@@ -40,10 +86,15 @@ export default function ContactForm() {
       }
 
       setStatus("success");
+
       setFeedback(
         "درخواست شما با موفقیت ثبت شد. به‌زودی با شما تماس می‌گیریم.",
       );
-      setForm(initialForm);
+
+      setForm({
+        ...initialForm,
+        subject: productFromUrl ? `استعلام قیمت - ${productFromUrl}` : "",
+      });
     } catch (error) {
       setStatus("error");
 
@@ -56,8 +107,9 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="bg-[#f7f7f5] py-20 md:py-24">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+    <section className="bg-[#f7f7f5] py-16 md:py-20">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        {/* Intro */}
         <div>
           <span className="mb-3 block text-sm font-bold text-brand-gold">
             فرم تماس
@@ -73,13 +125,25 @@ export default function ContactForm() {
             اطلاعات پروژه یا درخواست خود را ثبت کنید تا کارشناسان ما پس از
             بررسی، در اسرع وقت با شما تماس بگیرند.
           </p>
+
+          {productFromUrl && (
+            <div className="mt-7 rounded-xl border border-brand-gold/20 bg-brand-gold/5 p-5">
+              <div className="text-xs text-gray-500">محصول موردنظر</div>
+
+              <div className="mt-2 text-sm font-black text-brand-black">
+                {productFromUrl}
+              </div>
+            </div>
+          )}
         </div>
 
+        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8"
         >
           <div className="grid gap-5 sm:grid-cols-2">
+            {/* Name */}
             <div>
               <label
                 htmlFor="name"
@@ -93,9 +157,7 @@ export default function ContactForm() {
                 name="name"
                 type="text"
                 value={form.name}
-                onChange={(event) =>
-                  setForm({ ...form, name: event.target.value })
-                }
+                onChange={(event) => updateField("name", event.target.value)}
                 placeholder="نام شما"
                 required
                 disabled={status === "loading"}
@@ -103,6 +165,7 @@ export default function ContactForm() {
               />
             </div>
 
+            {/* Phone */}
             <div>
               <label
                 htmlFor="phone"
@@ -115,11 +178,10 @@ export default function ContactForm() {
                 id="phone"
                 name="phone"
                 type="tel"
+                inputMode="numeric"
                 value={form.phone}
-                onChange={(event) =>
-                  setForm({ ...form, phone: event.target.value })
-                }
-                placeholder="09xxxxxxxxx"
+                onChange={(event) => updateField("phone", event.target.value)}
+                placeholder="09123456789"
                 dir="ltr"
                 required
                 disabled={status === "loading"}
@@ -128,12 +190,16 @@ export default function ContactForm() {
             </div>
           </div>
 
+          {/* Email */}
           <div className="mt-5">
             <label
               htmlFor="email"
               className="mb-2 block text-sm font-bold text-brand-black"
             >
               ایمیل
+              <span className="mr-1 text-xs font-normal text-gray-400">
+                (اختیاری)
+              </span>
             </label>
 
             <input
@@ -141,9 +207,7 @@ export default function ContactForm() {
               name="email"
               type="email"
               value={form.email}
-              onChange={(event) =>
-                setForm({ ...form, email: event.target.value })
-              }
+              onChange={(event) => updateField("email", event.target.value)}
               placeholder="example@email.com"
               dir="ltr"
               disabled={status === "loading"}
@@ -151,6 +215,7 @@ export default function ContactForm() {
             />
           </div>
 
+          {/* Subject */}
           <div className="mt-5">
             <label
               htmlFor="subject"
@@ -164,9 +229,7 @@ export default function ContactForm() {
               name="subject"
               type="text"
               value={form.subject}
-              onChange={(event) =>
-                setForm({ ...form, subject: event.target.value })
-              }
+              onChange={(event) => updateField("subject", event.target.value)}
               placeholder="مثلاً استعلام قیمت تجهیزات"
               required
               disabled={status === "loading"}
@@ -174,6 +237,7 @@ export default function ContactForm() {
             />
           </div>
 
+          {/* Message */}
           <div className="mt-5">
             <label
               htmlFor="message"
@@ -187,9 +251,7 @@ export default function ContactForm() {
               name="message"
               rows={6}
               value={form.message}
-              onChange={(event) =>
-                setForm({ ...form, message: event.target.value })
-              }
+              onChange={(event) => updateField("message", event.target.value)}
               placeholder="توضیحات درخواست یا پروژه خود را بنویسید..."
               required
               disabled={status === "loading"}
@@ -197,24 +259,37 @@ export default function ContactForm() {
             />
           </div>
 
+          {/* Feedback */}
           {feedback && (
-            <p
-              className={`mt-5 rounded-md px-4 py-3 text-sm font-medium ${
+            <div
+              role="alert"
+              className={`mt-5 rounded-lg border px-4 py-3 text-sm font-medium ${
                 status === "success"
-                  ? "bg-green-50 text-green-700"
-                  : "bg-red-50 text-red-700"
+                  ? "border-green-200 bg-green-50 text-green-700"
+                  : "border-red-200 bg-red-50 text-red-700"
               }`}
             >
               {feedback}
-            </p>
+            </div>
           )}
 
+          {/* Submit */}
           <button
             type="submit"
             disabled={status === "loading"}
-            className="mt-6 inline-flex w-full items-center justify-center rounded-md bg-brand-gold px-6 py-3.5 text-sm font-bold text-brand-black transition-colors hover:bg-brand-gold-light disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-md bg-brand-gold px-6 text-sm font-black text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold-light disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-60"
           >
-            {status === "loading" ? "در حال ارسال..." : "ارسال درخواست"}
+            {status === "loading" ? (
+              <>
+                <span className="ml-2 h-4 w-4 animate-spin rounded-full border-2 border-brand-black/30 border-t-brand-black" />
+                در حال ارسال...
+              </>
+            ) : (
+              <>
+                ارسال درخواست
+                <span className="mr-2">←</span>
+              </>
+            )}
           </button>
         </form>
       </div>

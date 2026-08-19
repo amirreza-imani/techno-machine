@@ -36,24 +36,33 @@ export async function POST(request: Request) {
       }),
     });
 
-    if (!response.ok) {
-      const error = await response.text();
+    const result = await response.json().catch(() => null);
 
-      console.error("Strapi contact error:", error);
+    if (!response.ok) {
+      console.error("Strapi contact error:", {
+        status: response.status,
+        statusText: response.statusText,
+        result,
+      });
 
       return NextResponse.json(
         {
-          error: "خطا در ثبت درخواست. لطفاً دوباره تلاش کنید.",
+          error:
+            result?.error?.message ||
+            "خطا در ثبت درخواست. لطفاً دوباره تلاش کنید.",
         },
         {
-          status: 500,
+          status: response.status,
         },
       );
     }
 
+    console.log("Contact message created successfully:", result);
+
     return NextResponse.json(
       {
         message: "درخواست شما با موفقیت ثبت شد.",
+        data: result?.data ?? null,
       },
       {
         status: 201,
@@ -64,7 +73,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
-        error: "خطایی رخ داد. لطفاً دوباره تلاش کنید.",
+        error: "خطایی در پردازش درخواست رخ داد. لطفاً دوباره تلاش کنید.",
       },
       {
         status: 500,
