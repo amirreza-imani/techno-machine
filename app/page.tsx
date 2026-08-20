@@ -351,10 +351,20 @@ export default async function Home() {
                   key={product.documentId}
                   className="group overflow-hidden rounded-xl border border-border-theme bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-xl"
                 >
-                  <div className="flex aspect-[4/3] items-center justify-center bg-brand-charcoal">
-                    <span className="text-6xl font-black text-brand-gold/20 transition-transform duration-500 group-hover:scale-110">
-                      TM
-                    </span>
+                  <div className="relative aspect-[4/3] overflow-hidden bg-brand-charcoal">
+                    {product.image?.url ? (
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${product.image.url}`}
+                        alt={product.image.alternativeText || product.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center">
+                        <span className="text-6xl font-black text-brand-gold/20">
+                          TM
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6">

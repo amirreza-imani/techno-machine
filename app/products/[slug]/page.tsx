@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
+
 import Link from "next/link";
+
 import { notFound } from "next/navigation";
+
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+
 import Container from "@/components/Container";
+import ProductGallery, {
+  type GalleryImage,
+} from "@/components/products/ProductGallery";
+
 import { getProductBySlug, getProducts } from "@/lib/strapi";
+
 import type { Product } from "@/types/product";
 
 type ProductPageProps = {
@@ -27,6 +36,10 @@ function getStrapiMediaUrl(url?: string | null) {
   return `${STRAPI_URL}${url}`;
 }
 
+/* =========================================================
+   Metadata
+   ========================================================= */
+
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
@@ -47,12 +60,6 @@ export async function generateMetadata({
 
   const productImage = getStrapiMediaUrl(product.image?.url);
 
-  const products = await getProducts();
-
-  const relatedProducts = products
-    .filter((item) => item.documentId !== product.documentId)
-    .slice(0, 3);
-
   return {
     title: product.title,
     description,
@@ -61,6 +68,7 @@ export async function generateMetadata({
       title: product.title,
       description,
       type: "website",
+
       ...(productImage && {
         images: [
           {
@@ -72,6 +80,10 @@ export async function generateMetadata({
     },
   };
 }
+
+/* =========================================================
+   Page
+   ========================================================= */
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
@@ -87,11 +99,40 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const relatedProducts = allProducts
     .filter((item: Product) => item.slug !== product.slug)
     .slice(0, 3);
+
+  /*
+   * Gallery اصلی صفحه:
+   *
+   * اول تصویر اصلی محصول
+   * سپس تصاویر gallery از Strapi
+   */
+
   const productImage = getStrapiMediaUrl(product.image?.url);
+
+  const galleryImages: GalleryImage[] = (product.gallery ?? []).flatMap(
+    (image) => {
+      const imageUrl = getStrapiMediaUrl(image.url);
+
+      if (!imageUrl) {
+        return [];
+      }
+
+      return [
+        {
+          id: image.id,
+          url: imageUrl,
+          alternativeText: image.alternativeText,
+        },
+      ];
+    },
+  );
 
   return (
     <main dir="rtl">
-      {/* Hero */}
+      {/* =====================================================
+          Hero
+          ===================================================== */}
+
       <section className="relative overflow-hidden bg-brand-black">
         <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
 
@@ -100,6 +141,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <Container>
           <div className="relative py-12 md:py-16">
             {/* Breadcrumb */}
+
             <div className="mb-7 flex flex-wrap items-center gap-2 text-xs text-white/40">
               <Link
                 href="/"
@@ -143,39 +185,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </Container>
       </section>
 
-      {/* Main Product */}
+      {/* =====================================================
+          Main Product
+          ===================================================== */}
+
       <section className="bg-background py-12 md:py-16">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start">
-            {/* Product Image */}
+            {/* Product Gallery */}
+
             <div className="overflow-hidden rounded-2xl border border-border-theme bg-surface shadow-sm">
               <div className="relative aspect-[4/3] overflow-hidden bg-brand-charcoal">
-                {productImage ? (
-                  <img
-                    src={productImage}
-                    alt={product.image?.alternativeText || product.title}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="relative flex h-full items-center justify-center">
-                    <div className="absolute h-64 w-64 rounded-full border border-brand-gold/10" />
-
-                    <div className="absolute h-48 w-48 rounded-full border border-brand-gold/10" />
-
-                    <div className="relative text-center">
-                      <div className="text-8xl font-black tracking-tighter text-brand-gold/20">
-                        TM
-                      </div>
-
-                      <div className="mt-2 text-[10px] font-bold tracking-[0.3em] text-white/30">
-                        INDUSTRIAL SOLUTIONS
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <ProductGallery images={galleryImages} title={product.title} />
               </div>
 
-              {!productImage && (
+              {galleryImages.length === 0 && (
                 <div className="border-t border-border-soft bg-surface px-5 py-4 text-center text-xs text-muted">
                   تصویر محصول به‌زودی اضافه می‌شود.
                 </div>
@@ -183,6 +207,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
 
             {/* Product Information */}
+
             <div className="rounded-2xl border border-border-theme bg-surface p-6 shadow-sm md:p-8">
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-px w-8 bg-brand-gold" />
@@ -203,6 +228,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               )}
 
               {/* CTA */}
+
               <div className="mt-8 rounded-xl bg-brand-black p-6">
                 <div className="text-sm font-black text-white">
                   برای این محصول استعلام قیمت بگیرید
@@ -225,7 +251,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </Container>
       </section>
-      {/* Full Product Description */}
+
+      {/* =====================================================
+          Full Product Description
+          ===================================================== */}
+
       <section className="bg-surface-soft py-12 md:py-16">
         <Container>
           <div className="max-w-4xl">
@@ -254,7 +284,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </Container>
       </section>
 
-      {/* Gallery */}
+      {/* =====================================================
+          Gallery
+          ===================================================== */}
+
       {product.gallery && product.gallery.length > 0 && (
         <section className="bg-surface py-12 md:py-16">
           <Container>
@@ -294,7 +327,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </section>
       )}
 
-      {/* Related Products */}
+      {/* =====================================================
+          Related Products
+          ===================================================== */}
+
       {relatedProducts.length > 0 && (
         <section className="bg-surface-soft py-12 md:py-16">
           <Container>
@@ -381,7 +417,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </section>
       )}
 
-      {/* Bottom CTA */}
+      {/* =====================================================
+          Bottom CTA
+          ===================================================== */}
+
       <section className="bg-brand-black py-11">
         <Container>
           <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">

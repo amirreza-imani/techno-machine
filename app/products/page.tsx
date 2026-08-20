@@ -82,7 +82,7 @@ export default async function ProductsPage() {
                   </span>
 
                   <h2 className="mt-2 text-2xl font-black text-brand-black md:text-3xl">
-                    محصولات تکنو ماشین صنعت
+                    محصولات تکنو ماشین
                   </h2>
                 </div>
 
