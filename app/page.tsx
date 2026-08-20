@@ -8,11 +8,14 @@ export default async function Home() {
 
   return (
     <main dir="rtl">
-      {/* Hero */}
+      {/* =========================================================
+          Hero
+      ========================================================= */}
       <section className="relative overflow-hidden bg-brand-black">
         {/* Decorative elements */}
         <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-[var(--surface)] blur-3xl" />
+
+        <div className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-brand-charcoal blur-3xl" />
 
         <Container>
           <div className="grid min-h-[calc(100vh-180px)] items-center gap-10 py-12 lg:grid-cols-2 lg:py-14">
@@ -41,7 +44,7 @@ export default async function Home() {
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/products"
-                  className="inline-flex h-12 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-[var(--text-primary)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#d8b52f]"
+                  className="inline-flex h-12 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold-light"
                 >
                   مشاهده محصولات
                   <span className="mr-3">←</span>
@@ -59,16 +62,19 @@ export default async function Home() {
               <div className="mt-12 flex flex-wrap gap-x-10 gap-y-5 border-t border-white/10 pt-7">
                 <div>
                   <div className="text-2xl font-black text-white">۱۰+</div>
+
                   <div className="mt-1 text-xs text-white/40">سال تجربه</div>
                 </div>
 
                 <div>
                   <div className="text-2xl font-black text-white">۵۰+</div>
+
                   <div className="mt-1 text-xs text-white/40">پروژه صنعتی</div>
                 </div>
 
                 <div>
                   <div className="text-2xl font-black text-white">۲۴/۷</div>
+
                   <div className="mt-1 text-xs text-white/40">پشتیبانی</div>
                 </div>
               </div>
@@ -81,9 +87,9 @@ export default async function Home() {
                 <div className="absolute inset-8 rotate-3 border border-brand-gold/20" />
 
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative flex h-[330px] w-[330px] items-center justify-center rounded-full ...">
-                    {" "}
+                  <div className="relative flex h-[330px] w-[330px] items-center justify-center rounded-full border border-white/10 bg-brand-charcoal/60">
                     <div className="absolute h-[280px] w-[280px] rounded-full border border-brand-gold/10" />
+
                     <div className="text-center">
                       <div className="text-8xl font-black tracking-tighter text-brand-gold/20">
                         TM
@@ -96,16 +102,19 @@ export default async function Home() {
                   </div>
                 </div>
 
-                {/* Floating labels */}
-                <div className="absolute right-0 top-20 border border-white/10 bg-[var(--surface)] px-5 py-3 backdrop-blur-sm">
+                {/* Floating label */}
+                <div className="absolute right-0 top-20 border border-white/10 bg-white/5 px-5 py-3 backdrop-blur-sm">
                   <div className="text-[10px] text-white/40">تخصص</div>
+
                   <div className="mt-1 text-sm font-bold text-white">
                     مهندسی صنعتی
                   </div>
                 </div>
 
+                {/* Floating label */}
                 <div className="absolute bottom-16 left-0 border border-brand-gold/20 bg-brand-gold/10 px-5 py-3 backdrop-blur-sm">
                   <div className="text-[10px] text-brand-gold/70">راهکار</div>
+
                   <div className="mt-1 text-sm font-bold text-brand-gold">
                     از تأمین تا اجرا
                   </div>
@@ -116,8 +125,10 @@ export default async function Home() {
         </Container>
       </section>
 
-      {/* Intro */}
-      <section className="bg-[var(--surface-soft)] py-16 md:py-20">
+      {/* =========================================================
+          Intro
+      ========================================================= */}
+      <section className="bg-surface-soft py-16 transition-colors duration-300 md:py-20">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1.05fr_1fr] lg:items-center">
             {/* Content */}
@@ -130,12 +141,12 @@ export default async function Home() {
                 </span>
               </div>
 
-              <h2 className="max-w-xl text-3xl font-black leading-[1.4] text-[var(--text-primary)] md:text-4xl">
+              <h2 className="max-w-xl text-3xl font-black leading-[1.4] text-foreground md:text-4xl">
                 تخصص صنعتی،
                 <span className="block">راهکار قابل اعتماد.</span>
               </h2>
 
-              <p className="mt-6 max-w-2xl text-sm leading-8 text-[var(--text-secondary)] md:text-base">
+              <p className="mt-6 max-w-2xl text-sm leading-8 text-foreground-soft md:text-base">
                 تکنو ماشین صنعت در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی
                 برای صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه راهکارهای
                 مطمئن، تخصصی و متناسب با نیاز واقعی هر پروژه است.
@@ -143,7 +154,7 @@ export default async function Home() {
 
               <Link
                 href="/about"
-                className="mt-7 inline-flex items-center text-sm font-black text-[var(--text-primary)] transition-colors hover:text-brand-gold"
+                className="mt-7 inline-flex items-center text-sm font-black text-foreground transition-colors hover:text-brand-gold"
               >
                 بیشتر درباره ما
                 <span className="mr-3">←</span>
@@ -152,28 +163,28 @@ export default async function Home() {
 
             {/* Values */}
             <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-              <div className="border-r-2 border-brand-gold bg-[var(--surface)] px-6 py-5 shadow-sm">
-                <div className="text-lg font-black text-[var(--text-primary)]">تخصص</div>
+              <div className="border-r-2 border-brand-gold bg-surface px-6 py-5 shadow-sm transition-colors duration-300">
+                <div className="text-lg font-black text-foreground">تخصص</div>
 
-                <p className="mt-1 text-xs leading-6 text-[var(--text-muted)]">
+                <p className="mt-1 text-xs leading-6 text-muted">
                   شناخت نیازهای فنی و صنعتی پروژه
                 </p>
               </div>
 
-              <div className="border-r-2 border-brand-gold bg-[var(--surface)] px-6 py-5 shadow-sm">
-                <div className="text-lg font-black text-[var(--text-primary)]">کیفیت</div>
+              <div className="border-r-2 border-brand-gold bg-surface px-6 py-5 shadow-sm transition-colors duration-300">
+                <div className="text-lg font-black text-foreground">کیفیت</div>
 
-                <p className="mt-1 text-xs leading-6 text-[var(--text-muted)]">
+                <p className="mt-1 text-xs leading-6 text-muted">
                   تمرکز بر تجهیزات و راهکارهای قابل اعتماد
                 </p>
               </div>
 
-              <div className="border-r-2 border-brand-gold bg-[var(--surface)] px-6 py-5 shadow-sm">
-                <div className="text-lg font-black text-[var(--text-primary)]">
+              <div className="border-r-2 border-brand-gold bg-surface px-6 py-5 shadow-sm transition-colors duration-300">
+                <div className="text-lg font-black text-foreground">
                   پشتیبانی
                 </div>
 
-                <p className="mt-1 text-xs leading-6 text-[var(--text-muted)]">
+                <p className="mt-1 text-xs leading-6 text-muted">
                   همراهی از تأمین تا اجرای راهکار
                 </p>
               </div>
@@ -181,8 +192,11 @@ export default async function Home() {
           </div>
         </Container>
       </section>
-      {/* Services & Capabilities */}
-      <section className="bg-brand-black py-16 md:py-20">
+
+      {/* =========================================================
+          Services & Capabilities
+      ========================================================= */}
+      <section className="bg-background py-16 transition-colors duration-300 md:py-20">
         <Container>
           {/* Section Header */}
           <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
@@ -195,13 +209,13 @@ export default async function Home() {
                 </span>
               </div>
 
-              <h2 className="max-w-2xl text-3xl font-black leading-[1.4] text-white md:text-4xl">
+              <h2 className="max-w-2xl text-3xl font-black leading-[1.4] text-foreground md:text-4xl">
                 راهکار تخصصی،
                 <span className="block text-brand-gold">از تأمین تا اجرا</span>
               </h2>
             </div>
 
-            <p className="max-w-md text-sm leading-7 text-white/50">
+            <p className="max-w-md text-sm leading-7 text-muted">
               مجموعه‌ای از خدمات تخصصی برای تأمین تجهیزات، قطعات و ارائه
               راهکارهای فنی متناسب با نیاز پروژه‌های صنعتی و معدنی.
             </p>
@@ -210,22 +224,22 @@ export default async function Home() {
           {/* Services Grid */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {/* Service 01 */}
-            <div className="group relative overflow-hidden border border-white/10 bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:bg-[var(--surface)]">
+            <div className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="mb-8 flex items-start justify-between">
                 <span className="text-xs font-bold tracking-wider text-brand-gold">
                   ۰۱
                 </span>
 
-                <span className="text-2xl text-white/20 transition-colors duration-300 group-hover:text-brand-gold/50">
+                <span className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50">
                   ◇
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-white">
+              <h3 className="text-lg font-black text-foreground">
                 تأمین ماشین‌آلات
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-white/45">
+              <p className="mt-3 text-sm leading-7 text-muted">
                 تأمین ماشین‌آلات و تجهیزات تخصصی مورد نیاز صنایع معدنی و صنعتی
                 با تمرکز بر انتخاب راهکار مناسب.
               </p>
@@ -234,20 +248,22 @@ export default async function Home() {
             </div>
 
             {/* Service 02 */}
-            <div className="group relative overflow-hidden border border-white/10 bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:bg-[var(--surface)]">
+            <div className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="mb-8 flex items-start justify-between">
                 <span className="text-xs font-bold tracking-wider text-brand-gold">
                   ۰۲
                 </span>
 
-                <span className="text-2xl text-white/20 transition-colors duration-300 group-hover:text-brand-gold/50">
+                <span className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50">
                   ◇
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-white">تأمین قطعات</h3>
+              <h3 className="text-lg font-black text-foreground">
+                تأمین قطعات
+              </h3>
 
-              <p className="mt-3 text-sm leading-7 text-white/45">
+              <p className="mt-3 text-sm leading-7 text-muted">
                 تأمین قطعات و تجهیزات مورد نیاز ماشین‌آلات صنعتی با توجه به
                 مشخصات فنی و نیاز واقعی پروژه.
               </p>
@@ -256,22 +272,22 @@ export default async function Home() {
             </div>
 
             {/* Service 03 */}
-            <div className="group relative overflow-hidden border border-white/10 bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:bg-[var(--surface)]">
+            <div className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="mb-8 flex items-start justify-between">
                 <span className="text-xs font-bold tracking-wider text-brand-gold">
                   ۰۳
                 </span>
 
-                <span className="text-2xl text-white/20 transition-colors duration-300 group-hover:text-brand-gold/50">
+                <span className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50">
                   ◇
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-white">
+              <h3 className="text-lg font-black text-foreground">
                 خدمات فنی و مهندسی
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-white/45">
+              <p className="mt-3 text-sm leading-7 text-muted">
                 ارائه مشاوره و راهکارهای فنی و مهندسی برای انتخاب و استفاده صحیح
                 از تجهیزات متناسب با پروژه.
               </p>
@@ -280,22 +296,22 @@ export default async function Home() {
             </div>
 
             {/* Service 04 */}
-            <div className="group relative overflow-hidden border border-white/10 bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 bg-[var(--surface)]">
+            <div className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="mb-8 flex items-start justify-between">
                 <span className="text-xs font-bold tracking-wider text-brand-gold">
                   ۰۴
                 </span>
 
-                <span className="text-2xl text-white/20 transition-colors duration-300 group-hover:text-brand-gold/50">
+                <span className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50">
                   ◇
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-white">
+              <h3 className="text-lg font-black text-foreground">
                 پشتیبانی و مشاوره
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-white/45">
+              <p className="mt-3 text-sm leading-7 text-muted">
                 همراهی و پشتیبانی تخصصی در مسیر انتخاب، تأمین و اجرای راهکارهای
                 مورد نیاز پروژه.
               </p>
@@ -305,21 +321,24 @@ export default async function Home() {
           </div>
         </Container>
       </section>
-      {/* Products */}
-      <section className="bg-[var(--surface)] py-20">
+
+      {/* =========================================================
+          Products
+      ========================================================= */}
+      <section className="bg-surface-soft py-20 transition-colors duration-300">
         <Container>
           <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <span className="text-sm font-bold text-brand-gold">محصولات</span>
 
-              <h2 className="mt-2 text-3xl font-black text-[var(--text-primary)]">
+              <h2 className="mt-2 text-3xl font-black text-foreground">
                 محصولات منتخب
               </h2>
             </div>
 
             <Link
               href="/products"
-              className="text-sm font-bold text-[var(--text-primary)] transition-colors hover:text-brand-gold"
+              className="text-sm font-bold text-foreground transition-colors hover:text-brand-gold"
             >
               مشاهده همه محصولات ←
             </Link>
@@ -330,7 +349,7 @@ export default async function Home() {
               {products.slice(0, 3).map((product) => (
                 <article
                   key={product.documentId}
-                  className="group overflow-hidden rounded-xl border border-gray-200 bg-[var(--surface)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-xl"
+                  className="group overflow-hidden rounded-xl border border-border-theme bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-xl"
                 >
                   <div className="flex aspect-[4/3] items-center justify-center bg-brand-charcoal">
                     <span className="text-6xl font-black text-brand-gold/20 transition-transform duration-500 group-hover:scale-110">
@@ -345,17 +364,17 @@ export default async function Home() {
                       </span>
                     )}
 
-                    <h3 className="mt-2 text-xl font-black text-[var(--text-primary)]">
+                    <h3 className="mt-2 text-xl font-black text-foreground">
                       {product.title}
                     </h3>
 
-                    <p className="mt-3 line-clamp-2 text-sm leading-7 text-[var(--text-secondary)]">
+                    <p className="mt-3 line-clamp-2 text-sm leading-7 text-foreground-soft">
                       {product.shortDescription}
                     </p>
 
                     <Link
                       href={`/products/${product.slug}`}
-                      className="mt-5 inline-flex text-sm font-bold text-[var(--text-primary)] hover:text-brand-gold"
+                      className="mt-5 inline-flex text-sm font-bold text-foreground transition-colors hover:text-brand-gold"
                     >
                       مشاهده محصول
                       <span className="mr-2">←</span>
@@ -367,8 +386,11 @@ export default async function Home() {
           )}
         </Container>
       </section>
-      {/* Why Us */}
-      <section className="bg-[var(--surface-soft)] py-16 md:py-20">
+
+      {/* =========================================================
+          Why Us
+      ========================================================= */}
+      <section className="bg-background py-16 transition-colors duration-300 md:py-20">
         <Container>
           <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
@@ -376,61 +398,61 @@ export default async function Home() {
                 چرا تکنو ماشین صنعت؟
               </span>
 
-              <h2 className="mt-2 text-3xl font-black text-[var(--text-primary)]">
+              <h2 className="mt-2 text-3xl font-black text-foreground">
                 یک همراه تخصصی برای پروژه‌های صنعتی
               </h2>
             </div>
 
-            <p className="max-w-xl text-sm leading-7 text-[var(--text-secondary)]">
+            <p className="max-w-xl text-sm leading-7 text-muted">
               از انتخاب تجهیزات مناسب تا تأمین قطعات و پشتیبانی فنی، در کنار شما
-              هستیم تا راهکار مناسب پروژه‌تان را پیدا کنید.
+              هستیم تا راهکار مناسب پروژه‌تان را پیدا کنیم.
             </p>
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
             {/* Item 1 */}
-            <div className="group rounded-xl border border-gray-200 bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
+            <div className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-brand-black text-lg font-black text-brand-gold">
                 01
               </div>
 
-              <h3 className="mt-5 text-xl font-black text-[var(--text-primary)]">
+              <h3 className="mt-5 text-xl font-black text-foreground">
                 تخصص فنی
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
+              <p className="mt-3 text-sm leading-7 text-muted">
                 شناخت نیازهای فنی صنایع و ارائه تجهیزات و قطعات متناسب با شرایط
                 واقعی هر پروژه.
               </p>
             </div>
 
             {/* Item 2 */}
-            <div className="group rounded-xl border border-gray-200 bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
+            <div className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-brand-black text-lg font-black text-brand-gold">
                 02
               </div>
 
-              <h3 className="mt-5 text-xl font-black text-[var(--text-primary)]">
+              <h3 className="mt-5 text-xl font-black text-foreground">
                 تأمین مطمئن
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
+              <p className="mt-3 text-sm leading-7 text-muted">
                 تمرکز بر تأمین ماشین‌آلات، قطعات و تجهیزات صنعتی با کیفیت و
                 متناسب با نیاز پروژه.
               </p>
             </div>
 
             {/* Item 3 */}
-            <div className="group rounded-xl border border-gray-200 bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
+            <div className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-brand-black text-lg font-black text-brand-gold">
                 03
               </div>
 
-              <h3 className="mt-5 text-xl font-black text-[var(--text-primary)]">
+              <h3 className="mt-5 text-xl font-black text-foreground">
                 پشتیبانی تخصصی
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
+              <p className="mt-3 text-sm leading-7 text-muted">
                 همراهی و پشتیبانی فنی برای ایجاد اطمینان بیشتر در مسیر تأمین و
                 استفاده از تجهیزات.
               </p>
@@ -438,7 +460,10 @@ export default async function Home() {
           </div>
         </Container>
       </section>
-      {/* CTA */}
+
+      {/* =========================================================
+          CTA
+      ========================================================= */}
       <section className="bg-brand-black py-16">
         <Container>
           <div className="flex flex-col items-start justify-between gap-7 sm:flex-row sm:items-center">
@@ -454,7 +479,7 @@ export default async function Home() {
 
             <Link
               href="/contact"
-              className="inline-flex h-12 shrink-0 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-[var(--text-primary)] transition-all hover:bg-[#d8b52f]"
+              className="inline-flex h-12 shrink-0 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-brand-black transition-all hover:bg-brand-gold-light"
             >
               با ما در تماس باشید
               <span className="mr-3">←</span>

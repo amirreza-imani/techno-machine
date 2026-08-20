@@ -1,11 +1,16 @@
 @import "tailwindcss";
 
 /* =========================================================
-   LIGHT THEME
+   Tailwind Dark Mode
+   ========================================================= */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* =========================================================
+   Brand
    ========================================================= */
 
 :root {
-  /* Brand */
   --brand-gold: #d4a017;
   --brand-gold-dark: #b8860b;
   --brand-gold-light: #e6bb45;
@@ -14,37 +19,34 @@
   --brand-charcoal: #171717;
   --brand-charcoal-light: #242424;
 
-  /* Neutral */
-  --white: #ffffff;
+  /* =======================================================
+     LIGHT THEME
+     ======================================================= */
 
-  --gray-50: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #e5e5e5;
-  --gray-300: #d4d4d4;
-  --gray-400: #a3a3a3;
-  --gray-500: #737373;
-  --gray-600: #525252;
-  --gray-700: #404040;
-  --gray-800: #262626;
-  --gray-900: #171717;
-
-  /* Semantic */
-  --background: #ffffff;
-  --foreground: #0d0d0d;
+  --background: #f5f6f7;
 
   --surface: #ffffff;
-  --surface-soft: #f7f7f5;
-  --surface-muted: #f1f1ee;
+  --surface-soft: #f0f1f3;
+  --surface-dark: #e5e7eb;
 
-  --border: #e5e5e5;
-  --border-strong: #d4d4d4;
+  --foreground: #111318;
+  --foreground-soft: #3f4650;
+  --muted: #737b87;
 
-  --text-primary: #0d0d0d;
-  --text-secondary: #525252;
-  --text-muted: #737373;
+  --border: #dfe2e6;
+  --border-soft: #ebedf0;
 
-  --header-background: rgba(255, 255, 255, 0.94);
+  --header-background: #ffffff;
+  --header-border: #e2e5e8;
+
+  --input-background: #ffffff;
+  --input-border: #d7dbe0;
+
+  --hero-background: #0d0d0d;
+  --hero-foreground: #ffffff;
+
   --footer-background: #0d0d0d;
+  --footer-foreground: #ffffff;
 
   color-scheme: light;
 }
@@ -54,50 +56,36 @@
    ========================================================= */
 
 html.dark {
-  --brand-gold: #d4af37;
-  --brand-gold-dark: #b8921f;
-  --brand-gold-light: #e4c45a;
+  --background: #090b0e;
 
-  --brand-black: #080909;
-  --brand-charcoal: #111315;
-  --brand-charcoal-light: #1b1e21;
+  --surface: #11151a;
+  --surface-soft: #171c22;
+  --surface-dark: #20262d;
 
-  --white: #ffffff;
+  --foreground: #f4f5f6;
+  --foreground-soft: #d0d5db;
+  --muted: #9299a3;
 
-  --gray-50: #101214;
-  --gray-100: #151719;
-  --gray-200: #202326;
-  --gray-300: #2d3135;
-  --gray-400: #5b6268;
-  --gray-500: #858c92;
-  --gray-600: #a5abb0;
-  --gray-700: #c0c5c9;
-  --gray-800: #e1e4e6;
-  --gray-900: #f4f5f5;
+  --border: #2a3038;
+  --border-soft: #20262d;
 
-  /* Semantic */
-  --background: #080909;
-  --foreground: #f4f5f5;
+  --header-background: #0c0f12;
+  --header-border: #252b32;
 
-  --surface: #111315;
-  --surface-soft: #151719;
-  --surface-muted: #1b1e21;
+  --input-background: #11151a;
+  --input-border: #303740;
 
-  --border: #292d31;
-  --border-strong: #3a3f44;
+  --hero-background: #07090b;
+  --hero-foreground: #ffffff;
 
-  --text-primary: #f4f5f5;
-  --text-secondary: #b8bec3;
-  --text-muted: #858c92;
-
-  --header-background: rgba(8, 9, 9, 0.94);
-  --footer-background: #050606;
+  --footer-background: #07090b;
+  --footer-foreground: #ffffff;
 
   color-scheme: dark;
 }
 
 /* =========================================================
-   TAILWIND THEME
+   Tailwind Theme
    ========================================================= */
 
 @theme inline {
@@ -114,19 +102,30 @@ html.dark {
 
   --color-surface: var(--surface);
   --color-surface-soft: var(--surface-soft);
-  --color-surface-muted: var(--surface-muted);
+  --color-surface-dark: var(--surface-dark);
+
+  --color-muted: var(--muted);
 
   --color-border-theme: var(--border);
+  --color-border-soft: var(--border-soft);
 
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
-  --color-text-muted: var(--text-muted);
+  --color-header-background: var(--header-background);
+  --color-header-border: var(--header-border);
+
+  --color-input-background: var(--input-background);
+  --color-input-border: var(--input-border);
+
+  --color-hero-background: var(--hero-background);
+  --color-hero-foreground: var(--hero-foreground);
+
+  --color-footer-background: var(--footer-background);
+  --color-footer-foreground: var(--footer-foreground);
 
   --font-sans: var(--font-vazirmatn);
 }
 
 /* =========================================================
-   GLOBAL
+   Global
    ========================================================= */
 
 * {
@@ -158,9 +157,21 @@ body {
     color 300ms ease;
 }
 
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
+body,
+header,
+section,
+footer,
+main,
+article,
+aside,
+nav,
+div {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease,
+    box-shadow 300ms ease;
+}
 
 button,
 input,
@@ -183,38 +194,137 @@ img {
   max-width: 100%;
 }
 
-/* =========================================================
-   FORM ELEMENTS
-   ========================================================= */
-
-input,
-textarea,
-select {
-  background: var(--surface);
-  color: var(--text-primary);
-  border-color: var(--border);
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: var(--text-muted);
-}
-
-/* =========================================================
-   SELECTION
-   ========================================================= */
-
 ::selection {
   background: var(--brand-gold);
   color: var(--brand-black);
 }
 
 /* =========================================================
-   SCROLLBAR
+   Form Elements
+   ========================================================= */
+
+input,
+textarea,
+select {
+  background-color: var(--input-background);
+  color: var(--foreground);
+  border-color: var(--input-border);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--brand-gold);
+}
+
+/* =========================================================
+   Theme Transition
+   ========================================================= */
+
+html.theme-transition,
+html.theme-transition body,
+html.theme-transition * {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease,
+    box-shadow 300ms ease,
+    fill 300ms ease,
+    stroke 300ms ease !important;
+}
+
+/* =========================================================
+   Compatibility with Existing Components
+   ========================================================= */
+
+/*
+  بعضی از کامپوننت‌های فعلی پروژه هنوز از رنگ‌های ثابت
+  Tailwind مثل bg-white و text-gray-* استفاده می‌کنند.
+  این بخش کمک می‌کند تا در Dark Mode ظاهر آنها خراب نشود.
+*/
+
+/* White surfaces */
+html.dark .bg-white {
+  background-color: var(--surface) !important;
+}
+
+html.dark .bg-gray-50 {
+  background-color: var(--surface-soft) !important;
+}
+
+html.dark .bg-gray-100 {
+  background-color: var(--surface-soft) !important;
+}
+
+/* Light gray backgrounds */
+html.dark .bg-\[\#f7f7f5\] {
+  background-color: var(--background) !important;
+}
+
+/* Text */
+html.dark .text-brand-black {
+  color: var(--foreground) !important;
+}
+
+html.dark .text-gray-900 {
+  color: var(--foreground) !important;
+}
+
+html.dark .text-gray-800 {
+  color: var(--foreground-soft) !important;
+}
+
+html.dark .text-gray-700 {
+  color: var(--foreground-soft) !important;
+}
+
+html.dark .text-gray-600 {
+  color: var(--muted) !important;
+}
+
+html.dark .text-gray-500 {
+  color: var(--muted) !important;
+}
+
+html.dark .text-gray-400 {
+  color: #737b86 !important;
+}
+
+/* Borders */
+html.dark .border-gray-100 {
+  border-color: var(--border-soft) !important;
+}
+
+html.dark .border-gray-200 {
+  border-color: var(--border) !important;
+}
+
+html.dark .border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+/* =========================================================
+   Cards
+   ========================================================= */
+
+html.dark .shadow-sm {
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.25),
+    0 1px 3px rgb(0 0 0 / 0.2) !important;
+}
+
+/* =========================================================
+   Scrollbar
    ========================================================= */
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -222,7 +332,7 @@ textarea::placeholder {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
+  background: var(--surface-dark);
   border-radius: 999px;
 }
 
