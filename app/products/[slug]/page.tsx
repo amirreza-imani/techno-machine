@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import { notFound } from "next/navigation";
 
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 import Container from "@/components/Container";
 import ProductGallery, {

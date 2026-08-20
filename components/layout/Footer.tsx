@@ -3,6 +3,7 @@ import Link from "next/link";
 import Container from "@/components/Container";
 import { navigation } from "@/lib/site";
 import { getSiteSettings } from "@/lib/strapi";
+import Image from "next/image";
 
 export default async function Footer() {
   const settings = await getSiteSettings();
@@ -30,8 +31,13 @@ export default async function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-lg font-black text-brand-black">
-                TM
+              <div className="relative h-11 w-11 shrink-0">
+                <Image
+                  src="/images/IMG_5071.PNG"
+                  alt="تکنو ماشین صنعت"
+                  fill
+                  className="object-contain"
+                />
               </div>
 
               <div>

@@ -45,9 +45,11 @@ export default function AboutPage() {
                 <div className="absolute inset-8 rounded-full border border-brand-gold/10" />
 
                 <div className="relative text-center">
-                  <div className="text-7xl font-black tracking-tighter text-brand-gold/20">
-                    TM
-                  </div>
+                  <img
+                    src="/images/IMG_5071.PNG"
+                    alt="تکنو ماشین صنعت"
+                    className="h-auto w-48 object-contain"
+                  />
 
                   <div className="mt-3 text-[10px] font-bold tracking-[0.3em] text-white/30">
                     INDUSTRIAL SOLUTIONS

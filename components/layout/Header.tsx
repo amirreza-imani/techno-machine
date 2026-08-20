@@ -8,6 +8,7 @@ import { navigation } from "@/lib/site";
 import ThemeToggle from "@/components/layout/ThemeToggle";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
+import Image from "next/image";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,17 +45,14 @@ export default function Header() {
             className="flex shrink-0 items-center gap-3"
             aria-label="تکنو ماشین صنعت"
           >
-            <div
-              className="
-                flex h-12 w-12
-                items-center justify-center
-                rounded-sm
-                bg-brand-black
-                text-xl font-black
-                text-brand-gold
-              "
-            >
-              TM
+            <div className="relative h-12 w-12 shrink-0">
+              <Image
+                src="/images/IMG_5071.PNG"
+                alt="تکنو ماشین صنعت"
+                fill
+                priority
+                className="object-contain"
+              />
             </div>
 
             <div className="hidden leading-none sm:block">

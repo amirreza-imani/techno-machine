@@ -91,9 +91,11 @@ export default async function Home() {
                     <div className="absolute h-[280px] w-[280px] rounded-full border border-brand-gold/10" />
 
                     <div className="text-center">
-                      <div className="text-8xl font-black tracking-tighter text-brand-gold/20">
-                        TM
-                      </div>
+                      <img
+                        src="/images/IMG_5071.PNG"
+                        alt="تکنو ماشین صنعت"
+                        className="h-auto w-48 object-contain"
+                      />
 
                       <div className="mt-2 text-xs font-bold tracking-[0.3em] text-white/30">
                         INDUSTRIAL SOLUTIONS
@@ -360,9 +362,11 @@ export default async function Home() {
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center">
-                        <span className="text-6xl font-black text-brand-gold/20">
-                          TM
-                        </span>
+                        <img
+                          src="/images/IMG_5071.PNG"
+                          alt="تکنو ماشین صنعت"
+                          className="h-auto w-full max-w-[220px] object-contain"
+                        />
                       </div>
                     )}
                   </div>
