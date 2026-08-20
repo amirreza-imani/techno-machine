@@ -1,3 +1,8 @@
+import type { ComponentProps } from "react";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+
+type StrapiDescription = ComponentProps<typeof BlocksRenderer>["content"];
+
 export type StrapiMedia = {
   id: number;
   documentId?: string;
@@ -32,6 +37,7 @@ export type Product = {
   title: string;
   slug: string;
   shortDescription: string;
+  description?: StrapiDescription | null;
   featured: boolean;
   image?: StrapiMedia | null;
   gallery?: StrapiMedia[] | null;

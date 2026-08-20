@@ -1,14 +1,32 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Container from "@/components/Container";
-import { getProductBySlug } from "@/lib/strapi";
-import type { Metadata } from "next";
+import { getProductBySlug, getProducts } from "@/lib/strapi";
+import type { Product } from "@/types/product";
+
 type ProductPageProps = {
   params: Promise<{
     slug: string;
   }>;
 };
+
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+
+function getStrapiMediaUrl(url?: string | null) {
+  if (!url) {
+    return null;
+  }
+
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  return `${STRAPI_URL}${url}`;
+}
+
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
@@ -19,26 +37,41 @@ export async function generateMetadata({
   if (!product) {
     return {
       title: "محصول پیدا نشد",
+      description: "محصول مورد نظر شما پیدا نشد.",
     };
   }
 
+  const description =
+    product.shortDescription ||
+    `مشاهده مشخصات و اطلاعات ${product.title} در تکنو ماشین صنعت.`;
+
+  const productImage = getStrapiMediaUrl(product.image?.url);
+
+  const products = await getProducts();
+
+  const relatedProducts = products
+    .filter((item) => item.documentId !== product.documentId)
+    .slice(0, 3);
+
   return {
     title: product.title,
-    description:
-      product.shortDescription ||
-      `مشاهده مشخصات و اطلاعات ${product.title} در تکنو ماشین صنعت.`,
+    description,
 
     openGraph: {
       title: product.title,
-      description:
-        product.shortDescription ||
-        `مشاهده مشخصات و اطلاعات ${product.title} در تکنو ماشین صنعت.`,
+      description,
       type: "website",
+      ...(productImage && {
+        images: [
+          {
+            url: productImage,
+            alt: product.image?.alternativeText || product.title,
+          },
+        ],
+      }),
     },
   };
 }
-const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
@@ -49,9 +82,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
-  const productImage = product.image
-    ? `${STRAPI_URL}${product.image.url}`
-    : null;
+  const allProducts = await getProducts();
+
+  const relatedProducts = allProducts
+    .filter((item: Product) => item.slug !== product.slug)
+    .slice(0, 3);
+  const productImage = getStrapiMediaUrl(product.image?.url);
 
   return (
     <main dir="rtl">
@@ -108,11 +144,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
       </section>
 
       {/* Main Product */}
-      <section className="bg-[#f7f7f5] py-12 md:py-16">
+      <section className="bg-background py-12 md:py-16">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start">
             {/* Product Image */}
-            <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div className="overflow-hidden rounded-2xl border border-border-theme bg-surface shadow-sm">
               <div className="relative aspect-[4/3] overflow-hidden bg-brand-charcoal">
                 {productImage ? (
                   <img
@@ -140,14 +176,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
 
               {!productImage && (
-                <div className="border-t border-gray-100 px-5 py-4 text-center text-xs text-gray-400">
+                <div className="border-t border-border-soft bg-surface px-5 py-4 text-center text-xs text-muted">
                   تصویر محصول به‌زودی اضافه می‌شود.
                 </div>
               )}
             </div>
 
             {/* Product Information */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <div className="rounded-2xl border border-border-theme bg-surface p-6 shadow-sm md:p-8">
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-px w-8 bg-brand-gold" />
 
@@ -156,12 +192,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </span>
               </div>
 
-              <h2 className="text-2xl font-black text-brand-black md:text-3xl">
+              <h2 className="text-2xl font-black text-foreground md:text-3xl">
                 {product.title}
               </h2>
 
               {product.shortDescription && (
-                <p className="mt-5 text-sm leading-8 text-gray-600">
+                <p className="mt-5 text-sm leading-8 text-foreground-soft">
                   {product.shortDescription}
                 </p>
               )}
@@ -189,34 +225,157 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </Container>
       </section>
+      {/* Full Product Description */}
+      <section className="bg-surface-soft py-12 md:py-16">
+        <Container>
+          <div className="max-w-4xl">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-brand-gold" />
+
+              <span className="text-sm font-bold text-brand-gold">
+                توضیحات محصول
+              </span>
+            </div>
+
+            <div className="rounded-2xl border border-border-theme bg-surface p-6 shadow-sm md:p-8">
+              <h2 className="text-2xl font-black text-foreground md:text-3xl">
+                درباره {product.title}
+              </h2>
+
+              <div className="mt-6 text-sm leading-9 text-foreground-soft md:text-base">
+                {product.description ? (
+                  <BlocksRenderer content={product.description} />
+                ) : (
+                  product.shortDescription
+                )}
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       {/* Gallery */}
       {product.gallery && product.gallery.length > 0 && (
-        <section className="bg-white py-12 md:py-16">
+        <section className="bg-surface py-12 md:py-16">
           <Container>
             <div className="mb-8">
               <span className="text-sm font-bold text-brand-gold">تصاویر</span>
 
-              <h2 className="mt-2 text-2xl font-black text-brand-black">
+              <h2 className="mt-2 text-2xl font-black text-foreground">
                 تصاویر محصول
               </h2>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {product.gallery.map((image) => (
-                <div
-                  key={image.id}
-                  className="group overflow-hidden rounded-xl border border-gray-200 bg-gray-100"
-                >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={`${STRAPI_URL}${image.url}`}
-                      alt={image.alternativeText || product.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+              {product.gallery.map((image) => {
+                const imageUrl = getStrapiMediaUrl(image.url);
+
+                if (!imageUrl) {
+                  return null;
+                }
+
+                return (
+                  <div
+                    key={image.id}
+                    className="group overflow-hidden rounded-xl border border-border-theme bg-surface-soft"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={imageUrl}
+                        alt={image.alternativeText || product.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <section className="bg-surface-soft py-12 md:py-16">
+          <Container>
+            <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <span className="text-sm font-bold text-brand-gold">
+                  محصولات دیگر
+                </span>
+
+                <h2 className="mt-2 text-2xl font-black text-foreground md:text-3xl">
+                  محصولات مرتبط
+                </h2>
+              </div>
+
+              <Link
+                href="/products"
+                className="text-sm font-bold text-foreground transition-colors hover:text-brand-gold"
+              >
+                مشاهده همه محصولات ←
+              </Link>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {relatedProducts.map((item) => {
+                const imageUrl = getStrapiMediaUrl(item.image?.url);
+
+                return (
+                  <article
+                    key={item.documentId}
+                    className="group overflow-hidden rounded-xl border border-border-theme bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg"
+                  >
+                    <Link
+                      href={`/products/${item.slug}`}
+                      className="block"
+                      aria-label={`مشاهده ${item.title}`}
+                    >
+                      <div className="relative aspect-[4/3] overflow-hidden bg-brand-charcoal">
+                        {imageUrl ? (
+                          <img
+                            src={imageUrl}
+                            alt={item.image?.alternativeText || item.title}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="flex h-full items-center justify-center">
+                            <span className="text-6xl font-black text-brand-gold/20">
+                              TM
+                            </span>
+                          </div>
+                        )}
+
+                        {item.featured && (
+                          <span className="absolute right-4 top-4 rounded-sm bg-brand-gold px-3 py-1.5 text-[11px] font-black text-brand-black">
+                            محصول ویژه
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+
+                    <div className="p-5">
+                      <h3 className="text-lg font-black text-foreground">
+                        {item.title}
+                      </h3>
+
+                      {item.shortDescription && (
+                        <p className="mt-3 line-clamp-2 text-sm leading-7 text-foreground-soft">
+                          {item.shortDescription}
+                        </p>
+                      )}
+
+                      <Link
+                        href={`/products/${item.slug}`}
+                        className="mt-5 inline-flex text-sm font-bold text-foreground transition-colors hover:text-brand-gold"
+                      >
+                        مشاهده محصول
+                        <span className="mr-2">←</span>
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </Container>
         </section>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
-
 import "./globals.css";
 
 import Header from "@/components/layout/Header";
@@ -49,32 +48,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-        (function () {
-          try {
-            var savedTheme = localStorage.getItem("theme");
-            var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            var theme =
-              savedTheme === "dark" || savedTheme === "light"
-                ? savedTheme
-                : systemDark
-                  ? "dark"
-                  : "light";
-
-            document.documentElement.classList.toggle(
-              "dark",
-              theme === "dark"
-            );
-
-            document.documentElement.style.colorScheme = theme;
-          } catch (e) {}
-        })();
-      `,
-          }}
-        />
-
         <TopBar />
 
         <Header />
