@@ -25,14 +25,14 @@ export default function ServicesCTA() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-md bg-brand-black px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-brand-charcoal"
+                className="inline-flex items-center justify-center rounded-md bg-brand-black px-7 py-3.5 text-sm font-bold !text-white transition-colors hover:bg-brand-charcoal"
               >
                 تماس با ما
               </Link>
 
               <Link
                 href="/products"
-                className="inline-flex items-center justify-center rounded-md border border-brand-black/30 px-7 py-3.5 text-sm font-bold text-brand-black transition-colors hover:bg-brand-black hover:text-white"
+                className="inline-flex items-center justify-center rounded-md border border-brand-black/30 px-7 py-3.5 text-sm font-bold !text-brand-black transition-colors hover:bg-brand-black hover:!text-white dark:border-white/30 dark:!text-white dark:hover:bg-white dark:hover:!text-[#0d0d0d]"
               >
                 مشاهده محصولات
               </Link>

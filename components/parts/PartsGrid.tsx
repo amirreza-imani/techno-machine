@@ -1,46 +1,28 @@
+"use client";
+
+import { useState } from "react";
 import PartCard from "./PartCard";
+import type { Part } from "@/types/part";
 
-const parts = [
-  {
-    title: "فک سنگ‌شکن",
-    category: "سنگ‌شکن فکی",
-    description: "قطعه مقاوم و مناسب برای استفاده در مجموعه سنگ‌شکن‌های فکی.",
-  },
-  {
-    title: "بغل‌بند سنگ‌شکن",
-    category: "سنگ‌شکن فکی",
-    description: "قطعه مصرفی با طراحی مناسب برای محافظت از بخش داخلی دستگاه.",
-  },
-  {
-    title: "چکش سنگ‌شکن",
-    category: "سنگ‌شکن",
-    description: "مناسب برای تجهیزات خردایش و کاربردهای صنعتی مختلف.",
-  },
-  {
-    title: "روتور",
-    category: "تجهیزات خردایش",
-    description:
-      "قطعه‌ای مهم در تجهیزات خردایش با قابلیت استفاده در شرایط کاری صنعتی.",
-  },
-  {
-    title: "لاینر",
-    category: "قطعات مصرفی",
-    description: "قطعات مقاوم در برابر سایش برای افزایش دوام تجهیزات.",
-  },
-  {
-    title: "یاتاقان",
-    category: "قطعات مکانیکی",
-    description: "مناسب برای استفاده در مجموعه‌های مکانیکی ماشین‌آلات صنعتی.",
-  },
-];
+interface PartsGridProps {
+  parts: Part[];
+}
 
-export default function PartsGrid() {
+export default function PartsGrid({ parts }: PartsGridProps) {
+  const INITIAL_COUNT = 6;
+
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleParts = showAll ? parts : parts.slice(0, INITIAL_COUNT);
+
+  const hasMore = parts.length > INITIAL_COUNT;
+
   return (
     <section className="bg-[#f7f7f5] py-20 md:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="mb-12">
           <span className="mb-3 block text-sm font-bold text-brand-gold">
-            محصولات قطعات
+            قطعات ما
           </span>
 
           <h2 className="text-3xl font-black text-brand-black md:text-4xl">
@@ -49,10 +31,23 @@ export default function PartsGrid() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {parts.map((part) => (
-            <PartCard key={part.title} {...part} />
+          {visibleParts.map((part) => (
+            <PartCard key={part.documentId} {...part} />
           ))}
         </div>
+
+        {hasMore && !showAll && (
+          <div className="mt-12 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAll(true)}
+              className="inline-flex items-center justify-center rounded-md border border-brand-black px-8 py-3.5 text-sm font-bold text-brand-black transition-all duration-300 hover:bg-brand-black hover:text-white"
+            >
+              نمایش همه قطعات
+              <span className="mr-2">←</span>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

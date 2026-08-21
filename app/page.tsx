@@ -52,7 +52,7 @@ export default async function Home() {
 
                 <Link
                   href="/contact"
-                  className="inline-flex h-12 items-center justify-center rounded-sm border border-white/20 px-7 text-sm font-bold text-white transition-all duration-300 hover:border-brand-gold hover:text-brand-gold"
+                  className="inline-flex h-12 items-center justify-center rounded-sm border border-white/20 px-7 text-sm font-bold !text-white transition-all duration-300 hover:border-brand-gold hover:!text-brand-gold"
                 >
                   استعلام قیمت
                 </Link>
@@ -353,7 +353,7 @@ export default async function Home() {
                   key={product.documentId}
                   className="group overflow-hidden rounded-xl border border-border-theme bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-xl"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-brand-charcoal">
+                  <div className="relative aspect-[4/3] overflow-hidden light:white dark:bg-brand-charcoal">
                     {product.image?.url ? (
                       <img
                         src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${product.image.url}`}

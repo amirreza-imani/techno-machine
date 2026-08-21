@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
 
 import { notFound } from "next/navigation";
-
 
 import Container from "@/components/Container";
 import ProductGallery, {
@@ -108,8 +107,18 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const productImage = getStrapiMediaUrl(product.image?.url);
 
-  const galleryImages: GalleryImage[] = (product.gallery ?? []).flatMap(
-    (image) => {
+  const galleryImages: GalleryImage[] = [
+    ...(productImage && product.image
+      ? [
+          {
+            id: product.image.id,
+            url: productImage,
+            alternativeText: product.image.alternativeText,
+          },
+        ]
+      : []),
+
+    ...(product.gallery ?? []).flatMap((image) => {
       const imageUrl = getStrapiMediaUrl(image.url);
 
       if (!imageUrl) {
@@ -123,8 +132,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
           alternativeText: image.alternativeText,
         },
       ];
-    },
-  );
+    }),
+  ];
 
   return (
     <main dir="rtl">
@@ -194,7 +203,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Product Gallery */}
 
             <div className="overflow-hidden rounded-2xl border border-border-theme bg-surface shadow-sm">
-              <div className="relative aspect-[4/3] overflow-hidden bg-brand-charcoal">
+              <div className="relative aspect-[4/3] overflow-hidden light:white dark:bg-brand-charcoal">
                 <ProductGallery images={galleryImages} title={product.title} />
               </div>
 
@@ -228,12 +237,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
               {/* CTA */}
 
-              <div className="mt-8 rounded-xl bg-brand-black p-6">
-                <div className="text-sm font-black text-white">
+              <div className="mt-8 rounded-xl border border-border-theme bg-gradient-to-br from-[#f5f5f2] to-white p-6 shadow-sm dark:border-white/10 dark:from-brand-black dark:to-[#171717]">
+                <div className="text-sm font-black text-foreground">
                   برای این محصول استعلام قیمت بگیرید
                 </div>
 
-                <p className="mt-2 text-xs leading-6 text-white/50">
+                <p className="mt-2 text-xs leading-6 text-muted">
                   برای دریافت قیمت و اطلاعات بیشتر، درخواست خود را ثبت کنید تا
                   کارشناسان ما با شما تماس بگیرند.
                 </p>
@@ -420,7 +429,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           Bottom CTA
           ===================================================== */}
 
-      <section className="bg-brand-black py-11">
+      <section className="bg-[#f3f3f0] py-11 dark:bg-brand-black">
         <Container>
           <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
             <div>
@@ -428,14 +437,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 تکنو ماشین صنعت
               </span>
 
-              <h2 className="mt-2 text-xl font-black text-white md:text-2xl">
+              <h2 className="mt-2 text-xl font-black text-brand-black md:text-2xl dark:text-white">
                 محصولات دیگر را هم بررسی کنید
               </h2>
             </div>
 
             <Link
               href="/products"
-              className="inline-flex h-11 items-center justify-center rounded-md border border-white/20 px-6 text-sm font-bold text-white transition-colors hover:border-brand-gold hover:text-brand-gold"
+              className="inline-flex h-11 items-center justify-center rounded-md border border-brand-black/20 px-6 text-sm font-bold text-brand-black transition-colors hover:border-brand-gold hover:text-brand-gold dark:border-white/20 dark:text-white"
             >
               مشاهده محصولات
               <span className="mr-3">←</span>

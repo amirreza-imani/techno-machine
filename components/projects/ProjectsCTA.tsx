@@ -22,7 +22,7 @@ export default function ProjectsCTA() {
 
           <Link
             href="/contact"
-            className="shrink-0 rounded-md bg-brand-black px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-brand-charcoal"
+            className="shrink-0 rounded-md bg-brand-black px-7 py-4 text-sm font-bold !text-white transition-colors hover:bg-brand-charcoal"
           >
             تماس با ما
           </Link>

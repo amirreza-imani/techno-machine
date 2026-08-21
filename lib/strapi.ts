@@ -1,7 +1,12 @@
 import type { Product, StrapiResponse } from "@/types/product";
+import type { Part } from "@/types/part";
 
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+
+/* =========================================================
+   Products
+   ========================================================= */
 
 export async function getProducts(): Promise<Product[]> {
   try {
@@ -24,6 +29,7 @@ export async function getProducts(): Promise<Product[]> {
     return result.data;
   } catch (error) {
     console.error("Strapi products fetch error:", error);
+
     return [];
   }
 }
@@ -66,9 +72,87 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     return result.data[0] || null;
   } catch (error) {
     console.error("Strapi product fetch error:", error);
+
     return null;
   }
 }
+
+/* =========================================================
+   Parts
+   ========================================================= */
+
+export async function getParts(): Promise<Part[]> {
+  try {
+    const url = `${STRAPI_URL}/api/part?populate=image&pagination[pageSize]=100`;
+
+    const response = await fetch(url, {
+      next: {
+        revalidate: 60,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+
+      console.error("Failed to fetch parts:", response.status, errorText);
+
+      throw new Error(`Failed to fetch parts. Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    console.log("PARTS RESPONSE:", JSON.stringify(result, null, 2));
+
+    return result.data ?? [];
+  } catch (error) {
+    console.error("Strapi parts fetch error:", error);
+
+    return [];
+  }
+}
+
+export async function getPartBySlug(slug: string): Promise<Part | null> {
+  try {
+    const url =
+      `${STRAPI_URL}/api/part` +
+      `?filters[slug][$eq]=${encodeURIComponent(slug)}` +
+      `&populate=image`;
+
+    const response = await fetch(url, {
+      next: {
+        revalidate: 60,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+
+      console.error(
+        `Failed to fetch part "${slug}".`,
+        response.status,
+        errorText,
+      );
+
+      throw new Error(
+        `Failed to fetch part "${slug}". Status: ${response.status}`,
+      );
+    }
+
+    const result = await response.json();
+
+    console.log("PART BY SLUG RESPONSE:", JSON.stringify(result, null, 2));
+
+    return result.data?.[0] ?? null;
+  } catch (error) {
+    console.error("Strapi part error:", error);
+
+    return null;
+  }
+}
+
+/* =========================================================
+   Site Settings
+   ========================================================= */
 
 export type SiteSettings = {
   phone: string | null;

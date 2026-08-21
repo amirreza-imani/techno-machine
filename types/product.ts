@@ -3,6 +3,17 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 type StrapiDescription = ComponentProps<typeof BlocksRenderer>["content"];
 
+export type StrapiMediaFormat = {
+  name?: string;
+  hash?: string;
+  ext?: string;
+  mime?: string;
+  width: number;
+  height: number;
+  size: number;
+  url: string;
+};
+
 export type StrapiMedia = {
   id: number;
   documentId?: string;
@@ -20,17 +31,6 @@ export type StrapiMedia = {
   };
 };
 
-export type StrapiMediaFormat = {
-  name?: string;
-  hash?: string;
-  ext?: string;
-  mime?: string;
-  width: number;
-  height: number;
-  size: number;
-  url: string;
-};
-
 export type Product = {
   id: number;
   documentId: string;
@@ -42,6 +42,23 @@ export type Product = {
   image?: StrapiMedia | null;
   gallery?: StrapiMedia[] | null;
 };
+
+/* =========================================================
+   Part
+   ========================================================= */
+
+export type Part = {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  image?: StrapiMedia | null;
+};
+
+/* =========================================================
+   Strapi Response
+   ========================================================= */
 
 export type StrapiResponse<T> = {
   data: T;
