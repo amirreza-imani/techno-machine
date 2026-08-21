@@ -247,13 +247,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   کارشناسان ما با شما تماس بگیرند.
                 </p>
 
-                <Link
-                  href={`/contact?product=${encodeURIComponent(product.title)}`}
-                  className="mt-5 inline-flex h-11 items-center justify-center rounded-md bg-brand-gold px-6 text-sm font-black text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold-light"
-                >
-                  استعلام قیمت
-                  <span className="mr-3">←</span>
-                </Link>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <Link
+                    href={`/contact?product=${encodeURIComponent(product.title)}`}
+                    className="inline-flex h-11 items-center justify-center rounded-md bg-brand-gold px-6 text-sm font-black text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold-light"
+                  >
+                    استعلام قیمت
+                    <span className="mr-3">←</span>
+                  </Link>
+
+                  <Link
+                    href={`/parts?product=${encodeURIComponent(product.title)}`}
+                    className="inline-flex h-11 items-center justify-center rounded-md border border-brand-gold px-6 text-sm font-black text-brand-gold transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold hover:text-brand-black"
+                  >
+                    قطعات {product.title}
+                    <span className="mr-3">←</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -375,7 +385,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                       className="block"
                       aria-label={`مشاهده ${item.title}`}
                     >
-                      <div className="relative aspect-[4/3] overflow-hidden bg-brand-charcoal">
+                      <div className="relative aspect-[4/3] overflow-hidden light:bg-white dark:bg-brand-charcoal">
                         {imageUrl ? (
                           <img
                             src={imageUrl}
