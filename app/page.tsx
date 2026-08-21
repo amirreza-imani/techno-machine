@@ -25,7 +25,7 @@ export default async function Home() {
                 <span className="h-px w-10 bg-brand-gold" />
 
                 <span className="text-sm font-bold text-brand-gold">
-                  تکنو ماشین صنعت
+                  تکنو ماشین
                 </span>
               </div>
 
@@ -93,7 +93,7 @@ export default async function Home() {
                     <div className="text-center">
                       <img
                         src="/images/IMG_5071.PNG"
-                        alt="تکنو ماشین صنعت"
+                        alt="تکنو ماشین "
                         className="h-auto w-48 object-contain"
                       />
 
@@ -139,7 +139,7 @@ export default async function Home() {
                 <span className="h-px w-8 bg-brand-gold" />
 
                 <span className="text-sm font-bold text-brand-gold">
-                  درباره تکنو ماشین صنعت
+                  درباره تکنو ماشین
                 </span>
               </div>
 
@@ -149,8 +149,8 @@ export default async function Home() {
               </h2>
 
               <p className="mt-6 max-w-2xl text-sm leading-8 text-foreground-soft md:text-base">
-                تکنو ماشین صنعت در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی
-                برای صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه راهکارهای
+                تکنو ماشین در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای
+                صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه راهکارهای
                 مطمئن، تخصصی و متناسب با نیاز واقعی هر پروژه است.
               </p>
 
@@ -364,7 +364,7 @@ export default async function Home() {
                       <div className="flex h-full items-center justify-center">
                         <img
                           src="/images/IMG_5071.PNG"
-                          alt="تکنو ماشین صنعت"
+                          alt="تکنو ماشین "
                           className="h-auto w-full max-w-[220px] object-contain"
                         />
                       </div>
@@ -409,7 +409,7 @@ export default async function Home() {
           <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <span className="text-sm font-bold text-brand-gold">
-                چرا تکنو ماشین صنعت؟
+                چرا تکنو ماشین ؟
               </span>
 
               <h2 className="mt-2 text-3xl font-black text-foreground">

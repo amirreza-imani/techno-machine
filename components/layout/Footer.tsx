@@ -31,10 +31,10 @@ export default async function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="relative h-11 w-11 shrink-0">
+              <div className="relative h-18 w-18 shrink-0">
                 <Image
                   src="/images/IMG_5071.PNG"
-                  alt="تکنو ماشین صنعت"
+                  alt="تکنو ماشین "
                   fill
                   className="object-contain"
                 />
@@ -42,9 +42,6 @@ export default async function Footer() {
 
               <div>
                 <div className="text-sm font-black">تکنو ماشین</div>
-                <div className="mt-1 text-xs font-bold text-brand-gold">
-                  صنعت
-                </div>
               </div>
             </div>
 

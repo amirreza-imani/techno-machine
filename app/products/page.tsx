@@ -3,9 +3,10 @@ import Link from "next/link";
 import Container from "@/components/Container";
 import { getProducts } from "@/lib/strapi";
 import ProductsList from "@/components/products/ProductList";
+
 export const metadata = {
   title: "محصولات",
-  description: "محصولات و تجهیزات تکنو ماشین صنعت برای صنایع معدنی و صنعتی.",
+  description: "محصولات و تجهیزات تکنو ماشین برای صنایع معدنی و صنعتی.",
 };
 
 const STRAPI_URL =
@@ -16,15 +17,53 @@ export default async function ProductsPage() {
 
   return (
     <main dir="rtl">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-brand-black">
-        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
+      {/* =========================
+          Hero
+      ========================== */}
+      <section className="relative overflow-hidden bg-brand-black text-white">
+        {/* Decorative background */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl"
+        />
 
-        <div className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-white/5 blur-3xl" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-white/5 blur-3xl"
+        />
 
         <Container>
-          <div className="relative py-14 md:py-18">
-            <div className="max-w-3xl">
+          <div className="grid items-center gap-12 py-16 md:py-20 lg:grid-cols-[480px_1fr] lg:gap-20">
+            {/* =========================
+                Image - LEFT
+            ========================== */}
+            <div className="order-1 flex justify-start">
+              <div className="relative h-[280px] w-full max-w-[440px] overflow-hidden rounded-3xl border border-white/10 bg-brand-charcoal shadow-2xl md:h-[330px]">
+                <img
+                  src="/images/products.jpg"
+                  alt="محصولات و تجهیزات تکنو ماشین صنعت"
+                  className="h-full w-full object-cover"
+                />
+
+                {/* Dark overlay */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-black/60 via-transparent to-transparent" />
+
+                {/* Gold frame */}
+                <div className="pointer-events-none absolute inset-4 rounded-2xl border border-brand-gold/30" />
+
+                {/* Label */}
+                <div className="absolute bottom-5 right-5 rounded-lg border border-white/10 bg-brand-black/70 px-4 py-2 backdrop-blur-md">
+                  <span className="text-xs font-bold text-brand-gold">
+                    محصولات تکنو ماشین
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* =========================
+                Content - RIGHT
+            ========================== */}
+            <div className="order-2">
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-px w-8 bg-brand-gold" />
 
@@ -33,11 +72,11 @@ export default async function ProductsPage() {
                 </span>
               </div>
 
-              <h1 className="text-4xl font-black leading-[1.35] text-white md:text-5xl">
+              <h1 className="max-w-3xl text-4xl font-black leading-[1.3] text-white md:text-5xl lg:text-6xl">
                 محصولات و تجهیزات
               </h1>
 
-              <p className="mt-5 max-w-2xl text-sm leading-8 text-white/60 md:text-base">
+              <p className="mt-6 max-w-2xl text-base leading-8 text-white/60 md:text-lg">
                 مجموعه‌ای از ماشین‌آلات و تجهیزات تخصصی مورد استفاده در صنایع
                 معدنی و صنعتی، با تمرکز بر کیفیت، عملکرد و راهکارهای متناسب با
                 نیاز پروژه.
@@ -47,7 +86,9 @@ export default async function ProductsPage() {
         </Container>
       </section>
 
-      {/* Products */}
+      {/* =========================
+          Products
+      ========================== */}
       <section className="bg-[#f7f7f5] py-14 md:py-18">
         <Container>
           {products.length === 0 ? (
@@ -97,7 +138,9 @@ export default async function ProductsPage() {
         </Container>
       </section>
 
-      {/* Bottom CTA */}
+      {/* =========================
+          Bottom CTA
+      ========================== */}
       <section className="bg-brand-black py-12">
         <Container>
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">

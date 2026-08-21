@@ -16,7 +16,7 @@ export default function ProjectsCTA() {
 
             <p className="mt-4 max-w-2xl leading-8 text-brand-black/70">
               برای دریافت مشاوره، بررسی نیازهای پروژه و استعلام قیمت با
-              کارشناسان تکنو ماشین صنعت تماس بگیرید.
+              کارشناسان تکنو ماشین  تماس بگیرید.
             </p>
           </div>
 

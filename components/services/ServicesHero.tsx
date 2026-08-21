@@ -18,7 +18,7 @@ export default function ServicesHero() {
           <div>
             <span className="mb-5 inline-flex items-center gap-3 text-sm font-bold text-brand-gold">
               <span className="h-px w-8 bg-brand-gold" />
-              خدمات تکنو ماشین صنعت
+              خدمات تکنو ماشین
             </span>
 
             <h1 className="max-w-4xl text-4xl font-black leading-[1.25] md:text-6xl">

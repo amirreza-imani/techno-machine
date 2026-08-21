@@ -43,12 +43,12 @@ export default function Header() {
             href="/"
             onClick={closeMenu}
             className="flex shrink-0 items-center gap-3"
-            aria-label="تکنو ماشین صنعت"
+            aria-label="تکنو ماشین "
           >
-            <div className="relative h-12 w-12 shrink-0">
+            <div className="relative h-18 w-18 shrink-0">
               <Image
                 src="/images/IMG_5071.PNG"
-                alt="تکنو ماشین صنعت"
+                alt="تکنو ماشین "
                 fill
                 priority
                 className="object-contain"
@@ -59,8 +59,6 @@ export default function Header() {
               <div className="text-sm font-black text-foreground">
                 تکنو ماشین
               </div>
-
-              <div className="mt-1 text-xs font-bold text-brand-gold">صنعت</div>
             </div>
           </Link>
 

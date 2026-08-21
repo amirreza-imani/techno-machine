@@ -14,7 +14,7 @@ const vazirmatn = Vazirmatn({
 
 export const metadata: Metadata = {
   title: {
-    default: "تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی",
+    default: "تکنو ماشین  | ماشین‌آلات صنعتی و تجهیزات معدنی",
     template: "%s | تکنو ماشین صنعت",
   },
 

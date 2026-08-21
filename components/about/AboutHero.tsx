@@ -14,7 +14,7 @@ export default function AboutHero() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <span className="mb-5 inline-flex items-center gap-3 text-sm font-bold text-brand-gold">
           <span className="h-px w-8 bg-brand-gold" />
-          درباره تکنو ماشین صنعت
+          درباره تکنو ماشین
         </span>
 
         <h1 className="max-w-4xl text-4xl font-black leading-[1.25] md:text-6xl">
@@ -24,7 +24,7 @@ export default function AboutHero() {
         </h1>
 
         <p className="mt-7 max-w-2xl text-base leading-8 text-gray-300 md:text-lg">
-          تکنو ماشین صنعت با تمرکز بر حوزه ماشین‌آلات و تجهیزات صنایع معدنی،
+          تکنو ماشین با تمرکز بر حوزه ماشین‌آلات و تجهیزات صنایع معدنی،
           راهکارهای مهندسی و صنعتی را با تکیه بر دانش فنی و تجربه ارائه می‌کند.
         </p>
       </div>

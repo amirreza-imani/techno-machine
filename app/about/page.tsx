@@ -19,7 +19,7 @@ export default function AboutPage() {
                 <span className="h-px w-10 bg-brand-gold" />
 
                 <span className="text-sm font-bold text-brand-gold">
-                  درباره تکنو ماشین صنعت
+                  درباره تکنو ماشین 
                 </span>
               </div>
 
@@ -31,7 +31,7 @@ export default function AboutPage() {
               </h1>
 
               <p className="mt-7 max-w-2xl text-sm leading-8 text-white/60 md:text-base">
-                تکنو ماشین صنعت در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی
+                تکنو ماشین  در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی
                 برای صنایع معدنی و صنعتی فعالیت می‌کند و تمرکز آن بر ارائه
                 راهکارهای مطمئن و متناسب با نیاز واقعی هر پروژه است.
               </p>
@@ -82,7 +82,7 @@ export default function AboutPage() {
 
               <div className="mt-6 space-y-5 text-sm leading-8 text-gray-600 md:text-base">
                 <p>
-                  تکنو ماشین صنعت با تمرکز بر حوزه ماشین‌آلات، قطعات و تجهیزات
+                  تکنو ماشین  با تمرکز بر حوزه ماشین‌آلات، قطعات و تجهیزات
                   صنعتی و معدنی فعالیت می‌کند. هدف ما ایجاد ارتباطی مطمئن میان
                   نیاز فنی پروژه و راهکار مناسب برای تأمین تجهیزات است.
                 </p>

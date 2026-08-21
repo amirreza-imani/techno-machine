@@ -28,7 +28,7 @@ export default function ProductNotFound() {
             {/* Description */}
             <p className="mx-auto mt-5 max-w-lg text-sm leading-8 text-gray-500 md:text-base">
               محصولی که به دنبال آن هستید وجود ندارد، حذف شده یا آدرس آن تغییر
-              کرده است. می‌توانید محصولات دیگر تکنو ماشین صنعت را مشاهده کنید.
+              کرده است. می‌توانید محصولات دیگر تکنو ماشین  را مشاهده کنید.
             </p>
 
             {/* Actions */}
