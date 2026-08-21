@@ -12,7 +12,7 @@ export default async function Footer() {
   const email = settings?.email || "info@technomachine.ir";
 
   const address =
-    settings?.address || "تهران، خیابان ولیعصر، دفتر مرکزی تکنو ماشین صنعت";
+    settings?.address || "تهران، خیابان ولیعصر، دفتر مرکزی تکنو ماشین ";
 
   const workingHours =
     settings?.workingHours || "شنبه تا چهارشنبه، ۸:۰۰ تا ۱۷:۰۰";
@@ -31,17 +31,24 @@ export default async function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="relative h-18 w-18 shrink-0">
+              <div className="relative h-16 w-16 shrink-0">
                 <Image
                   src="/images/IMG_5071.PNG"
-                  alt="تکنو ماشین "
+                  alt="تکنو ماشین"
                   fill
+                  sizes="64px"
                   className="object-contain"
                 />
               </div>
 
-              <div>
-                <div className="text-sm font-black">تکنو ماشین</div>
+              <div className="flex flex-col items-start leading-none">
+                <span className="text-[17px] font-black tracking-tight text-white">
+                  تکنو ماشین
+                </span>
+
+                <span className="mt-1.5 text-[8px] font-semibold tracking-[0.22em] text-white/40">
+                  INDUSTRIAL SOLUTIONS
+                </span>
               </div>
             </div>
 
@@ -59,7 +66,7 @@ export default async function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-xs text-white/50 transition-colors hover:text-brand-gold"
+                  className="text-xs text-white/50 transition-colors hover:!text-brand-gold"
                 >
                   {item.title}
                 </Link>
@@ -96,9 +103,7 @@ export default async function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-white/10 py-5 text-xs text-white/30 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} تکنو ماشین صنعت. تمامی حقوق محفوظ است.
-          </p>
+          <p>© {new Date().getFullYear()} تکنو ماشین . تمامی حقوق محفوظ است.</p>
 
           <p>طراحی و توسعه با رویکرد صنعتی</p>
         </div>

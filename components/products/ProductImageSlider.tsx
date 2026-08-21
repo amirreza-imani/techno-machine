@@ -60,6 +60,7 @@ export default function ProductImageSlider({
         key={currentImage.id}
         src={currentImage.url}
         alt={currentImage.alternativeText || title}
+        style={{ imageOrientation: "from-image" }}
         className="h-full w-full object-cover"
       />
 

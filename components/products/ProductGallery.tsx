@@ -64,13 +64,14 @@ export default function ProductGallery({
             key={image.id}
             src={image.url}
             alt={image.alternativeText || title}
+            style={{ imageOrientation: "from-image" }}
             className={`
-              absolute inset-0
-              h-full w-full
-              object-cover
-              transition-opacity duration-700
-              ${index === currentIndex ? "opacity-100" : "opacity-0"}
-            `}
+    absolute inset-0
+    h-full w-full
+    object-cover
+    transition-opacity duration-700
+    ${index === currentIndex ? "opacity-100" : "opacity-0"}
+  `}
           />
         ))}
 

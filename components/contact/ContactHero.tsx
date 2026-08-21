@@ -19,14 +19,15 @@ export default function ContactHero() {
           {/* =========================
               IMAGE - LEFT
           ========================== */}
-          <div className="order-1 flex justify-start">
-            <div className="relative h-[330px] w-[440px] overflow-hidden rounded-3xl border border-white/10 bg-brand-charcoal shadow-2xl">
+          {/* Image - LEFT */}
+          <div className="order-1 flex justify-center lg:justify-start">
+            <div className="relative aspect-[4/3] w-full max-w-[440px] overflow-hidden rounded-3xl border border-white/10 bg-brand-charcoal shadow-2xl lg:h-[330px] lg:w-[440px] lg:max-w-none lg:aspect-auto">
               <Image
-                src="/images/contact-hero.jpg"
+                src="/images/contact-hero.png"
                 alt="ارتباط با تکنو ماشین صنعت"
                 fill
                 priority
-                sizes="440px"
+                sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 440px, 440px"
                 className="object-cover"
               />
 
@@ -44,7 +45,6 @@ export default function ContactHero() {
               </div>
             </div>
           </div>
-
           {/* =========================
               CONTENT - RIGHT
           ========================== */}

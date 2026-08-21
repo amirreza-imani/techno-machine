@@ -45,7 +45,7 @@ export default function Header() {
             className="flex shrink-0 items-center gap-3"
             aria-label="تکنو ماشین "
           >
-            <div className="relative h-18 w-18 shrink-0">
+            <div className="relative h-16 w-16 shrink-0">
               <Image
                 src="/images/IMG_5071.PNG"
                 alt="تکنو ماشین "
@@ -55,9 +55,15 @@ export default function Header() {
               />
             </div>
 
-            <div className="hidden leading-none sm:block">
-              <div className="text-sm font-black text-foreground">
-                تکنو ماشین
+            <div className="hidden sm:block">
+              <div className="flex flex-col items-start leading-none">
+                <span className="text-[17px] font-black tracking-tight text-foreground">
+                  تکنو ماشین
+                </span>
+
+                <span className="mt-1.5 text-[8px] font-semibold tracking-[0.22em] text-foreground-soft/60">
+                  INDUSTRIAL SOLUTIONS
+                </span>
               </div>
             </div>
           </Link>

@@ -1,6 +1,6 @@
 import type { Product, StrapiResponse } from "@/types/product";
 import type { Part } from "@/types/part";
-
+import type { Project } from "@/types/project";
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
@@ -147,6 +147,36 @@ export async function getPartBySlug(slug: string): Promise<Part | null> {
     console.error("Strapi part error:", error);
 
     return null;
+  }
+}
+
+/* =========================================================
+   Projects
+   ========================================================= */
+
+export async function getProjects(): Promise<Project[]> {
+  try {
+    const response = await fetch(`${STRAPI_URL}/api/projects?populate=*`, {
+      next: {
+        revalidate: 60,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+
+      console.error("Failed to fetch projects:", response.status, errorText);
+
+      throw new Error(`Failed to fetch projects. Status: ${response.status}`);
+    }
+
+    const result: StrapiResponse<Project[]> = await response.json();
+
+    return result.data;
+  } catch (error) {
+    console.error("Strapi projects fetch error:", error);
+
+    return [];
   }
 }
 

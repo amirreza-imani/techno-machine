@@ -61,17 +61,14 @@ export default function ProductImageSlideshow({
           key={`${image.id}-${image.url}`}
           src={image.url}
           alt={image.alternativeText || title}
+          style={{ imageOrientation: "from-image" }}
           className={`
-            absolute inset-0
-            h-full w-full
-            object-cover
-            transition-opacity duration-700 ease-in-out
-            ${
-              index === currentIndex
-                ? "opacity-100"
-                : "pointer-events-none opacity-0"
-            }
-          `}
+    absolute inset-0
+    h-full w-full
+    object-cover
+    transition-opacity duration-700 ease-in-out
+    ${index === currentIndex ? "opacity-100" : "pointer-events-none opacity-0"}
+  `}
         />
       ))}
 
