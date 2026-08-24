@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-
 import { notFound } from "next/navigation";
 
 import Container from "@/components/Container";
@@ -10,7 +9,6 @@ import ProductGallery, {
 } from "@/components/products/ProductGallery";
 
 import { getProductBySlug, getProducts } from "@/lib/strapi";
-
 import type { Product } from "@/types/product";
 
 type ProductPageProps = {
@@ -21,6 +19,8 @@ type ProductPageProps = {
 
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 function getStrapiMediaUrl(url?: string | null) {
   if (!url) {
@@ -35,6 +35,24 @@ function getStrapiMediaUrl(url?: string | null) {
 }
 
 /* =========================================================
+   Static Params
+   ========================================================= */
+
+export async function generateStaticParams() {
+  try {
+    const products = await getProducts();
+
+    return products
+      .filter((product) => product.slug)
+      .map((product) => ({
+        slug: product.slug,
+      }));
+  } catch {
+    return [];
+  }
+}
+
+/* =========================================================
    Metadata
    ========================================================= */
 
@@ -42,41 +60,174 @@ export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-
   const product = await getProductBySlug(slug);
 
   if (!product) {
     return {
       title: "محصول پیدا نشد",
       description: "محصول مورد نظر شما پیدا نشد.",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
   const description =
-    product.shortDescription ||
-    `مشاهده مشخصات و اطلاعات ${product.title} در تکنو ماشین صنعت.`;
+    product.shortDescription?.trim() ||
+    `مشاهده مشخصات، تصاویر و اطلاعات ${product.title} در تکنو ماشین.`;
 
   const productImage = getStrapiMediaUrl(product.image?.url);
+
+  const canonicalUrl = `${SITE_URL}/products/${product.slug}`;
 
   return {
     title: product.title,
     description,
 
+    alternates: {
+      canonical: canonicalUrl,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+
     openGraph: {
       title: product.title,
       description,
+      url: canonicalUrl,
+      siteName: "تکنو ماشین",
+      locale: "fa_IR",
       type: "website",
 
-      ...(productImage && {
-        images: [
-          {
-            url: productImage,
-            alt: product.image?.alternativeText || product.title,
-          },
-        ],
-      }),
+      ...(productImage
+        ? {
+            images: [
+              {
+                url: productImage,
+                alt: product.image?.alternativeText?.trim() || product.title,
+              },
+            ],
+          }
+        : {}),
+    },
+
+    twitter: {
+      card: productImage ? "summary_large_image" : "summary",
+      title: product.title,
+      description,
+
+      ...(productImage
+        ? {
+            images: [productImage],
+          }
+        : {}),
     },
   };
+}
+
+/* =========================================================
+   JSON-LD
+   ========================================================= */
+
+function ProductJsonLd({
+  product,
+  productImage,
+}: {
+  product: Product;
+  productImage: string | null;
+}) {
+  const productUrl = `${SITE_URL}/products/${product.slug}`;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+
+    name: product.title,
+
+    description:
+      product.shortDescription?.trim() ||
+      `مشاهده اطلاعات و مشخصات ${product.title} در تکنو ماشین.`,
+
+    url: productUrl,
+
+    ...(productImage
+      ? {
+          image: [productImage],
+        }
+      : {}),
+
+    brand: {
+      "@type": "Brand",
+      name: "تکنو ماشین",
+    },
+
+    manufacturer: {
+      "@type": "Organization",
+      name: "تکنو ماشین",
+      url: SITE_URL,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema),
+      }}
+    />
+  );
+}
+
+/* =========================================================
+   Breadcrumb JSON-LD
+   ========================================================= */
+
+function BreadcrumbJsonLd({ product }: { product: Product }) {
+  const items = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "صفحه اصلی",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "محصولات",
+      item: `${SITE_URL}/products`,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: product.title,
+      item: `${SITE_URL}/products/${product.slug}`,
+    },
+  ];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema),
+      }}
+    />
+  );
 }
 
 /* =========================================================
@@ -98,12 +249,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
     .filter((item: Product) => item.slug !== product.slug)
     .slice(0, 3);
 
-  /*
-   * Gallery اصلی صفحه:
-   *
-   * اول تصویر اصلی محصول
-   * سپس تصاویر gallery از Strapi
-   */
+  /* =======================================================
+     Gallery
+     ======================================================= */
 
   const productImage = getStrapiMediaUrl(product.image?.url);
 
@@ -138,19 +286,36 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <main dir="rtl">
       {/* =====================================================
+          SEO Structured Data
+          ===================================================== */}
+
+      <ProductJsonLd product={product} productImage={productImage} />
+
+      <BreadcrumbJsonLd product={product} />
+
+      {/* =====================================================
           Hero
           ===================================================== */}
 
       <section className="relative overflow-hidden bg-brand-black">
-        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl"
+        />
 
-        <div className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-white/5 blur-3xl" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-white/5 blur-3xl"
+        />
 
         <Container>
           <div className="relative py-12 md:py-16">
             {/* Breadcrumb */}
 
-            <div className="mb-7 flex flex-wrap items-center gap-2 text-xs text-white/40">
+            <nav
+              aria-label="مسیر صفحه"
+              className="mb-7 flex flex-wrap items-center gap-2 text-xs text-white/40"
+            >
               <Link
                 href="/"
                 className="transition-colors hover:text-brand-gold"
@@ -158,7 +323,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 صفحه اصلی
               </Link>
 
-              <span>/</span>
+              <span aria-hidden="true">/</span>
 
               <Link
                 href="/products"
@@ -167,10 +332,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 محصولات
               </Link>
 
-              <span>/</span>
+              <span aria-hidden="true">/</span>
 
               <span className="text-white/70">{product.title}</span>
-            </div>
+            </nav>
 
             <div className="max-w-4xl">
               {product.featured && (
@@ -203,7 +368,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Product Gallery */}
 
             <div className="overflow-hidden rounded-2xl border border-border-theme bg-surface shadow-sm">
-              <div className="relative aspect-[4/3] overflow-hidden light:white dark:bg-brand-charcoal">
+              <div className="relative aspect-[4/3] overflow-hidden light:bg-white dark:bg-brand-charcoal">
                 <ProductGallery images={galleryImages} title={product.title} />
               </div>
 
@@ -249,11 +414,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <Link
-                    href={`/contact?product=${encodeURIComponent(product.title)}`}
+                    href={`/contact?product=${encodeURIComponent(
+                      product.title,
+                    )}`}
                     className="inline-flex h-11 items-center justify-center rounded-md bg-brand-gold px-6 text-sm font-black text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold-light"
                   >
                     استعلام قیمت
-                    <span className="mr-3">←</span>
+                    <span className="mr-3" aria-hidden="true">
+                      ←
+                    </span>
                   </Link>
 
                   <Link
@@ -261,7 +430,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     className="inline-flex h-11 items-center justify-center rounded-md border border-brand-gold px-6 text-sm font-black text-brand-gold transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold hover:text-brand-black"
                   >
                     قطعات {product.title}
-                    <span className="mr-3">←</span>
+                    <span className="mr-3" aria-hidden="true">
+                      ←
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -285,7 +456,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </span>
             </div>
 
-            <div className="rounded-2xl border border-border-theme bg-surface p-6 shadow-sm md:p-8">
+            <article className="rounded-2xl border border-border-theme bg-surface p-6 shadow-sm md:p-8">
               <h2 className="text-2xl font-black text-foreground md:text-3xl">
                 درباره {product.title}
               </h2>
@@ -297,7 +468,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   product.shortDescription
                 )}
               </div>
-            </div>
+            </article>
           </div>
         </Container>
       </section>
@@ -313,7 +484,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <span className="text-sm font-bold text-brand-gold">تصاویر</span>
 
               <h2 className="mt-2 text-2xl font-black text-foreground">
-                تصاویر محصول
+                تصاویر {product.title}
               </h2>
             </div>
 
@@ -326,18 +497,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 }
 
                 return (
-                  <div
+                  <figure
                     key={image.id}
                     className="group overflow-hidden rounded-xl border border-border-theme bg-surface-soft"
                   >
                     <div className="aspect-[4/3] overflow-hidden">
                       <img
                         src={imageUrl}
-                        alt={image.alternativeText || product.title}
+                        alt={
+                          image.alternativeText?.trim() ||
+                          `${product.title} - تصویر محصول`
+                        }
+                        loading="lazy"
+                        decoding="async"
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
-                  </div>
+                  </figure>
                 );
               })}
             </div>
@@ -389,7 +565,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         {imageUrl ? (
                           <img
                             src={imageUrl}
-                            alt={item.image?.alternativeText || item.title}
+                            alt={
+                              item.image?.alternativeText?.trim() || item.title
+                            }
+                            loading="lazy"
+                            decoding="async"
                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                         ) : (
@@ -424,7 +604,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         className="mt-5 inline-flex text-sm font-bold text-foreground transition-colors hover:text-brand-gold"
                       >
                         مشاهده محصول
-                        <span className="mr-2">←</span>
+                        <span className="mr-2" aria-hidden="true">
+                          ←
+                        </span>
                       </Link>
                     </div>
                   </article>
@@ -444,7 +626,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
             <div>
               <span className="text-xs font-bold text-brand-gold">
-                تکنو ماشین صنعت
+                تکنو ماشین
               </span>
 
               <h2 className="mt-2 text-xl font-black text-brand-black md:text-2xl dark:text-white">
@@ -457,7 +639,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
               className="inline-flex h-11 items-center justify-center rounded-md border border-brand-black/20 px-6 text-sm font-bold text-brand-black transition-colors hover:border-brand-gold hover:text-brand-gold dark:border-white/20 dark:text-white"
             >
               مشاهده محصولات
-              <span className="mr-3">←</span>
+              <span className="mr-3" aria-hidden="true">
+                ←
+              </span>
             </Link>
           </div>
         </Container>
