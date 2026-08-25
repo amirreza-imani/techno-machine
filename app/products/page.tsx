@@ -3,6 +3,7 @@ import Link from "next/link";
 import Container from "@/components/Container";
 import { getProducts } from "@/lib/strapi";
 import ProductsList from "@/components/products/ProductList";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata = {
   title: "محصولات",
@@ -17,6 +18,18 @@ export default async function ProductsPage() {
 
   return (
     <main dir="rtl">
+      <BreadcrumbJsonLd
+        items={[
+          {
+            name: "صفحه اصلی",
+            url: "/",
+          },
+          {
+            name: "محصولات",
+          },
+        ]}
+      />
+
       {/* =========================
           Hero
       ========================== */}

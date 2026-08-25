@@ -1,35 +1,65 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import Container from "@/components/Container";
 import { getProducts } from "@/lib/strapi";
 
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+
+function getStrapiMediaUrl(url?: string | null) {
+  if (!url) {
+    return null;
+  }
+
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  return `${STRAPI_URL}${url}`;
+}
+
 export default async function Home() {
   const products = await getProducts();
+
+  const featuredProducts = products.slice(0, 3);
 
   return (
     <main dir="rtl">
       {/* =========================================================
           Hero
       ========================================================= */}
-      <section className="relative overflow-hidden bg-brand-black">
+      <section
+        aria-labelledby="home-hero-title"
+        className="relative overflow-hidden bg-brand-black"
+      >
         {/* Decorative elements */}
-        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl"
+        />
 
-        <div className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-brand-charcoal blur-3xl" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-brand-charcoal blur-3xl"
+        />
 
         <Container>
           <div className="grid min-h-[calc(100vh-180px)] items-center gap-10 py-12 lg:grid-cols-2 lg:py-14">
-            {/* Content */}
+            {/* Hero Content */}
             <div className="relative z-10">
               <div className="mb-6 flex items-center gap-3">
-                <span className="h-px w-10 bg-brand-gold" />
+                <span aria-hidden="true" className="h-px w-10 bg-brand-gold" />
 
                 <span className="text-sm font-bold text-brand-gold">
-                  تکنو ماشین
+                  تکنو ماشین صنعت
                 </span>
               </div>
 
-              <h1 className="max-w-3xl text-4xl font-black leading-[1.3] text-white sm:text-5xl lg:text-6xl">
+              <h1
+                id="home-hero-title"
+                className="max-w-3xl text-4xl font-black leading-[1.3] text-white sm:text-5xl lg:text-6xl"
+              >
                 راهکارهای تخصصی
                 <span className="block text-brand-gold">
                   ماشین‌آلات و تجهیزات صنعتی
@@ -37,22 +67,27 @@ export default async function Home() {
               </h1>
 
               <p className="mt-7 max-w-xl text-sm leading-8 text-white/60 sm:text-base">
-                تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و
-                صنعتی، همراه با خدمات فنی و مهندسی و پشتیبانی تخصصی.
+                تکنو ماشین صنعت در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی
+                برای صنایع معدنی و صنعتی فعالیت می‌کند و با ارائه خدمات فنی و
+                مهندسی، راهکارهای متناسب با نیاز پروژه‌ها ارائه می‌دهد.
               </p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/products"
                   className="inline-flex h-12 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold-light"
+                  aria-label="مشاهده محصولات و ماشین‌آلات تکنو ماشین"
                 >
                   مشاهده محصولات
-                  <span className="mr-3">←</span>
+                  <span aria-hidden="true" className="mr-3">
+                    ←
+                  </span>
                 </Link>
 
                 <Link
                   href="/contact"
                   className="inline-flex h-12 items-center justify-center rounded-sm border border-white/20 px-7 text-sm font-bold !text-white transition-all duration-300 hover:border-brand-gold hover:!text-brand-gold"
+                  aria-label="تماس با تکنو ماشین و دریافت استعلام قیمت"
                 >
                   استعلام قیمت
                 </Link>
@@ -62,39 +97,44 @@ export default async function Home() {
               <div className="mt-12 flex flex-wrap gap-x-10 gap-y-5 border-t border-white/10 pt-7">
                 <div>
                   <div className="text-2xl font-black text-white">۱۰+</div>
-
                   <div className="mt-1 text-xs text-white/40">سال تجربه</div>
                 </div>
 
                 <div>
                   <div className="text-2xl font-black text-white">۵۰+</div>
-
                   <div className="mt-1 text-xs text-white/40">پروژه صنعتی</div>
                 </div>
 
                 <div>
                   <div className="text-2xl font-black text-white">۲۴/۷</div>
-
                   <div className="mt-1 text-xs text-white/40">پشتیبانی</div>
                 </div>
               </div>
             </div>
 
-            {/* Visual */}
+            {/* Hero Visual */}
             <div className="relative hidden lg:block">
               <div className="relative mx-auto aspect-square max-w-[440px]">
-                {/* Outer frame */}
-                <div className="absolute inset-8 rotate-3 border border-brand-gold/20" />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-8 rotate-3 border border-brand-gold/20"
+                />
 
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative flex h-[330px] w-[330px] items-center justify-center rounded-full border border-white/10 bg-brand-charcoal/60">
-                    <div className="absolute h-[280px] w-[280px] rounded-full border border-brand-gold/10" />
+                    <div
+                      aria-hidden="true"
+                      className="absolute h-[280px] w-[280px] rounded-full border border-brand-gold/10"
+                    />
 
                     <div className="text-center">
-                      <img
+                      <Image
                         src="/images/IMG_5071.PNG"
-                        alt="تکنو ماشین "
-                        className="h-auto w-48 object-contain"
+                        alt="لوگوی تکنو ماشین صنعت"
+                        width={192}
+                        height={192}
+                        priority
+                        className="mx-auto h-auto w-48 object-contain"
                       />
 
                       <div className="mt-2 text-xs font-bold tracking-[0.3em] text-white/30">
@@ -130,27 +170,32 @@ export default async function Home() {
       {/* =========================================================
           Intro
       ========================================================= */}
-      <section className="bg-surface-soft py-16 transition-colors duration-300 md:py-20">
+      <section
+        aria-labelledby="about-intro-title"
+        className="bg-surface-soft py-16 transition-colors duration-300 md:py-20"
+      >
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1.05fr_1fr] lg:items-center">
-            {/* Content */}
             <div>
               <div className="mb-5 flex items-center gap-3">
-                <span className="h-px w-8 bg-brand-gold" />
+                <span aria-hidden="true" className="h-px w-8 bg-brand-gold" />
 
                 <span className="text-sm font-bold text-brand-gold">
                   درباره تکنو ماشین
                 </span>
               </div>
 
-              <h2 className="max-w-xl text-3xl font-black leading-[1.4] text-foreground md:text-4xl">
+              <h2
+                id="about-intro-title"
+                className="max-w-xl text-3xl font-black leading-[1.4] text-foreground md:text-4xl"
+              >
                 تخصص صنعتی،
                 <span className="block">راهکار قابل اعتماد.</span>
               </h2>
 
               <p className="mt-6 max-w-2xl text-sm leading-8 text-foreground-soft md:text-base">
-                تکنو ماشین در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای
-                صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه راهکارهای
+                تکنو ماشین صنعت در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی
+                برای صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه راهکارهای
                 مطمئن، تخصصی و متناسب با نیاز واقعی هر پروژه است.
               </p>
 
@@ -159,14 +204,16 @@ export default async function Home() {
                 className="mt-7 inline-flex items-center text-sm font-black text-foreground transition-colors hover:text-brand-gold"
               >
                 بیشتر درباره ما
-                <span className="mr-3">←</span>
+                <span aria-hidden="true" className="mr-3">
+                  ←
+                </span>
               </Link>
             </div>
 
             {/* Values */}
             <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
               <div className="border-r-2 border-brand-gold bg-surface px-6 py-5 shadow-sm transition-colors duration-300">
-                <div className="text-lg font-black text-foreground">تخصص</div>
+                <h3 className="text-lg font-black text-foreground">تخصص</h3>
 
                 <p className="mt-1 text-xs leading-6 text-muted">
                   شناخت نیازهای فنی و صنعتی پروژه
@@ -174,7 +221,7 @@ export default async function Home() {
               </div>
 
               <div className="border-r-2 border-brand-gold bg-surface px-6 py-5 shadow-sm transition-colors duration-300">
-                <div className="text-lg font-black text-foreground">کیفیت</div>
+                <h3 className="text-lg font-black text-foreground">کیفیت</h3>
 
                 <p className="mt-1 text-xs leading-6 text-muted">
                   تمرکز بر تجهیزات و راهکارهای قابل اعتماد
@@ -182,9 +229,7 @@ export default async function Home() {
               </div>
 
               <div className="border-r-2 border-brand-gold bg-surface px-6 py-5 shadow-sm transition-colors duration-300">
-                <div className="text-lg font-black text-foreground">
-                  پشتیبانی
-                </div>
+                <h3 className="text-lg font-black text-foreground">پشتیبانی</h3>
 
                 <p className="mt-1 text-xs leading-6 text-muted">
                   همراهی از تأمین تا اجرای راهکار
@@ -196,22 +241,27 @@ export default async function Home() {
       </section>
 
       {/* =========================================================
-          Services & Capabilities
+          Services
       ========================================================= */}
-      <section className="bg-background py-16 transition-colors duration-300 md:py-20">
+      <section
+        aria-labelledby="services-title"
+        className="bg-background py-16 transition-colors duration-300 md:py-20"
+      >
         <Container>
-          {/* Section Header */}
           <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
             <div>
               <div className="mb-4 flex items-center gap-3">
-                <span className="h-px w-8 bg-brand-gold" />
+                <span aria-hidden="true" className="h-px w-8 bg-brand-gold" />
 
                 <span className="text-sm font-bold text-brand-gold">
                   خدمات و توانمندی‌ها
                 </span>
               </div>
 
-              <h2 className="max-w-2xl text-3xl font-black leading-[1.4] text-foreground md:text-4xl">
+              <h2
+                id="services-title"
+                className="max-w-2xl text-3xl font-black leading-[1.4] text-foreground md:text-4xl"
+              >
                 راهکار تخصصی،
                 <span className="block text-brand-gold">از تأمین تا اجرا</span>
               </h2>
@@ -223,103 +273,61 @@ export default async function Home() {
             </p>
           </div>
 
-          {/* Services Grid */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {/* Service 01 */}
-            <div className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
-              <div className="mb-8 flex items-start justify-between">
-                <span className="text-xs font-bold tracking-wider text-brand-gold">
-                  ۰۱
-                </span>
+            {[
+              {
+                number: "۰۱",
+                title: "تأمین ماشین‌آلات",
+                description:
+                  "تأمین ماشین‌آلات و تجهیزات تخصصی مورد نیاز صنایع معدنی و صنعتی با تمرکز بر انتخاب راهکار مناسب.",
+              },
+              {
+                number: "۰۲",
+                title: "تأمین قطعات",
+                description:
+                  "تأمین قطعات و تجهیزات مورد نیاز ماشین‌آلات صنعتی با توجه به مشخصات فنی و نیاز واقعی پروژه.",
+              },
+              {
+                number: "۰۳",
+                title: "خدمات فنی و مهندسی",
+                description:
+                  "ارائه مشاوره و راهکارهای فنی و مهندسی برای انتخاب و استفاده صحیح از تجهیزات متناسب با پروژه.",
+              },
+              {
+                number: "۰۴",
+                title: "پشتیبانی و مشاوره",
+                description:
+                  "همراهی و پشتیبانی تخصصی در مسیر انتخاب، تأمین و اجرای راهکارهای مورد نیاز پروژه.",
+              },
+            ].map((service) => (
+              <article
+                key={service.number}
+                className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg"
+              >
+                <div className="mb-8 flex items-start justify-between">
+                  <span className="text-xs font-bold tracking-wider text-brand-gold">
+                    {service.number}
+                  </span>
 
-                <span className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50">
-                  ◇
-                </span>
-              </div>
+                  <span
+                    aria-hidden="true"
+                    className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50"
+                  >
+                    ◇
+                  </span>
+                </div>
 
-              <h3 className="text-lg font-black text-foreground">
-                تأمین ماشین‌آلات
-              </h3>
+                <h3 className="text-lg font-black text-foreground">
+                  {service.title}
+                </h3>
 
-              <p className="mt-3 text-sm leading-7 text-muted">
-                تأمین ماشین‌آلات و تجهیزات تخصصی مورد نیاز صنایع معدنی و صنعتی
-                با تمرکز بر انتخاب راهکار مناسب.
-              </p>
+                <p className="mt-3 text-sm leading-7 text-muted">
+                  {service.description}
+                </p>
 
-              <div className="mt-6 h-px w-8 bg-brand-gold transition-all duration-300 group-hover:w-14" />
-            </div>
-
-            {/* Service 02 */}
-            <div className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
-              <div className="mb-8 flex items-start justify-between">
-                <span className="text-xs font-bold tracking-wider text-brand-gold">
-                  ۰۲
-                </span>
-
-                <span className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50">
-                  ◇
-                </span>
-              </div>
-
-              <h3 className="text-lg font-black text-foreground">
-                تأمین قطعات
-              </h3>
-
-              <p className="mt-3 text-sm leading-7 text-muted">
-                تأمین قطعات و تجهیزات مورد نیاز ماشین‌آلات صنعتی با توجه به
-                مشخصات فنی و نیاز واقعی پروژه.
-              </p>
-
-              <div className="mt-6 h-px w-8 bg-brand-gold transition-all duration-300 group-hover:w-14" />
-            </div>
-
-            {/* Service 03 */}
-            <div className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
-              <div className="mb-8 flex items-start justify-between">
-                <span className="text-xs font-bold tracking-wider text-brand-gold">
-                  ۰۳
-                </span>
-
-                <span className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50">
-                  ◇
-                </span>
-              </div>
-
-              <h3 className="text-lg font-black text-foreground">
-                خدمات فنی و مهندسی
-              </h3>
-
-              <p className="mt-3 text-sm leading-7 text-muted">
-                ارائه مشاوره و راهکارهای فنی و مهندسی برای انتخاب و استفاده صحیح
-                از تجهیزات متناسب با پروژه.
-              </p>
-
-              <div className="mt-6 h-px w-8 bg-brand-gold transition-all duration-300 group-hover:w-14" />
-            </div>
-
-            {/* Service 04 */}
-            <div className="group relative overflow-hidden rounded-sm border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
-              <div className="mb-8 flex items-start justify-between">
-                <span className="text-xs font-bold tracking-wider text-brand-gold">
-                  ۰۴
-                </span>
-
-                <span className="text-2xl text-muted/30 transition-colors duration-300 group-hover:text-brand-gold/50">
-                  ◇
-                </span>
-              </div>
-
-              <h3 className="text-lg font-black text-foreground">
-                پشتیبانی و مشاوره
-              </h3>
-
-              <p className="mt-3 text-sm leading-7 text-muted">
-                همراهی و پشتیبانی تخصصی در مسیر انتخاب، تأمین و اجرای راهکارهای
-                مورد نیاز پروژه.
-              </p>
-
-              <div className="mt-6 h-px w-8 bg-brand-gold transition-all duration-300 group-hover:w-14" />
-            </div>
+                <div className="mt-6 h-px w-8 bg-brand-gold transition-all duration-300 group-hover:w-14" />
+              </article>
+            ))}
           </div>
         </Container>
       </section>
@@ -327,13 +335,19 @@ export default async function Home() {
       {/* =========================================================
           Products
       ========================================================= */}
-      <section className="bg-surface-soft py-20 transition-colors duration-300">
+      <section
+        aria-labelledby="products-title"
+        className="bg-surface-soft py-20 transition-colors duration-300"
+      >
         <Container>
           <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <span className="text-sm font-bold text-brand-gold">محصولات</span>
 
-              <h2 className="mt-2 text-3xl font-black text-foreground">
+              <h2
+                id="products-title"
+                className="mt-2 text-3xl font-black text-foreground"
+              >
                 محصولات منتخب
               </h2>
             </div>
@@ -342,60 +356,88 @@ export default async function Home() {
               href="/products"
               className="text-sm font-bold text-foreground transition-colors hover:text-brand-gold"
             >
-              مشاهده همه محصولات ←
+              مشاهده همه محصولات
+              <span aria-hidden="true"> ←</span>
             </Link>
           </div>
 
-          {products.length > 0 && (
+          {featuredProducts.length > 0 ? (
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {products.slice(0, 3).map((product) => (
-                <article
-                  key={product.documentId}
-                  className="group overflow-hidden rounded-xl border border-border-theme bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-xl"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden light:white dark:bg-brand-charcoal">
-                    {product.image?.url ? (
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${product.image.url}`}
-                        alt={product.image.alternativeText || product.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <img
-                          src="/images/IMG_5071.PNG"
-                          alt="تکنو ماشین "
-                          className="h-auto w-full max-w-[220px] object-contain"
-                        />
-                      </div>
-                    )}
-                  </div>
+              {featuredProducts.map((product) => {
+                const imageUrl = getStrapiMediaUrl(product.image?.url);
 
-                  <div className="p-6">
-                    {product.featured && (
-                      <span className="text-xs font-bold text-brand-gold">
-                        محصول ویژه
-                      </span>
-                    )}
-
-                    <h3 className="mt-2 text-xl font-black text-foreground">
-                      {product.title}
-                    </h3>
-
-                    <p className="mt-3 line-clamp-2 text-sm leading-7 text-foreground-soft">
-                      {product.shortDescription}
-                    </p>
-
+                return (
+                  <article
+                    key={product.documentId}
+                    className="group overflow-hidden rounded-xl border border-border-theme bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-xl"
+                  >
                     <Link
                       href={`/products/${product.slug}`}
-                      className="mt-5 inline-flex text-sm font-bold text-foreground transition-colors hover:text-brand-gold"
+                      aria-label={`مشاهده ${product.title}`}
+                      className="block"
                     >
-                      مشاهده محصول
-                      <span className="mr-2">←</span>
+                      <div className="relative aspect-[4/3] overflow-hidden bg-white dark:bg-brand-charcoal">
+                        {imageUrl ? (
+                          <img
+                            src={imageUrl}
+                            alt={
+                              product.image?.alternativeText ||
+                              `تصویر ${product.title}`
+                            }
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="flex h-full items-center justify-center">
+                            <Image
+                              src="/images/IMG_5071.PNG"
+                              alt="تکنو ماشین صنعت"
+                              width={220}
+                              height={220}
+                              className="h-auto w-full max-w-[220px] object-contain"
+                            />
+                          </div>
+                        )}
+                      </div>
                     </Link>
-                  </div>
-                </article>
-              ))}
+
+                    <div className="p-6">
+                      {product.featured && (
+                        <span className="text-xs font-bold text-brand-gold">
+                          محصول ویژه
+                        </span>
+                      )}
+
+                      <h3 className="mt-2 text-xl font-black text-foreground">
+                        {product.title}
+                      </h3>
+
+                      {product.shortDescription && (
+                        <p className="mt-3 line-clamp-2 text-sm leading-7 text-foreground-soft">
+                          {product.shortDescription}
+                        </p>
+                      )}
+
+                      <Link
+                        href={`/products/${product.slug}`}
+                        aria-label={`جزئیات محصول ${product.title}`}
+                        className="mt-5 inline-flex text-sm font-bold text-foreground transition-colors hover:text-brand-gold"
+                      >
+                        مشاهده محصول
+                        <span aria-hidden="true" className="mr-2">
+                          ←
+                        </span>
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-border-theme bg-surface p-8 text-center">
+              <p className="text-sm text-muted">
+                محصولات به‌زودی در سایت قرار خواهند گرفت.
+              </p>
             </div>
           )}
         </Container>
@@ -404,15 +446,21 @@ export default async function Home() {
       {/* =========================================================
           Why Us
       ========================================================= */}
-      <section className="bg-background py-16 transition-colors duration-300 md:py-20">
+      <section
+        aria-labelledby="why-us-title"
+        className="bg-background py-16 transition-colors duration-300 md:py-20"
+      >
         <Container>
           <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <span className="text-sm font-bold text-brand-gold">
-                چرا تکنو ماشین ؟
+                چرا تکنو ماشین؟
               </span>
 
-              <h2 className="mt-2 text-3xl font-black text-foreground">
+              <h2
+                id="why-us-title"
+                className="mt-2 text-3xl font-black text-foreground"
+              >
                 یک همراه تخصصی برای پروژه‌های صنعتی
               </h2>
             </div>
@@ -424,8 +472,7 @@ export default async function Home() {
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
-            {/* Item 1 */}
-            <div className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
+            <article className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-brand-black text-lg font-black text-brand-gold">
                 01
               </div>
@@ -438,10 +485,9 @@ export default async function Home() {
                 شناخت نیازهای فنی صنایع و ارائه تجهیزات و قطعات متناسب با شرایط
                 واقعی هر پروژه.
               </p>
-            </div>
+            </article>
 
-            {/* Item 2 */}
-            <div className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
+            <article className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-brand-black text-lg font-black text-brand-gold">
                 02
               </div>
@@ -454,10 +500,9 @@ export default async function Home() {
                 تمرکز بر تأمین ماشین‌آلات، قطعات و تجهیزات صنعتی با کیفیت و
                 متناسب با نیاز پروژه.
               </p>
-            </div>
+            </article>
 
-            {/* Item 3 */}
-            <div className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
+            <article className="group rounded-xl border border-border-theme bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-brand-black text-lg font-black text-brand-gold">
                 03
               </div>
@@ -470,7 +515,7 @@ export default async function Home() {
                 همراهی و پشتیبانی فنی برای ایجاد اطمینان بیشتر در مسیر تأمین و
                 استفاده از تجهیزات.
               </p>
-            </div>
+            </article>
           </div>
         </Container>
       </section>
@@ -478,7 +523,10 @@ export default async function Home() {
       {/* =========================================================
           CTA
       ========================================================= */}
-      <section className="bg-brand-black py-16">
+      <section
+        aria-labelledby="home-cta-title"
+        className="bg-brand-black py-16"
+      >
         <Container>
           <div className="flex flex-col items-start justify-between gap-7 sm:flex-row sm:items-center">
             <div>
@@ -486,7 +534,10 @@ export default async function Home() {
                 آماده همکاری هستیم
               </span>
 
-              <h2 className="mt-2 text-2xl font-black text-white md:text-3xl">
+              <h2
+                id="home-cta-title"
+                className="mt-2 text-2xl font-black text-white md:text-3xl"
+              >
                 برای پروژه خود به یک راهکار تخصصی نیاز دارید؟
               </h2>
             </div>
@@ -494,9 +545,12 @@ export default async function Home() {
             <Link
               href="/contact"
               className="inline-flex h-12 shrink-0 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-brand-black transition-all hover:bg-brand-gold-light"
+              aria-label="تماس با تکنو ماشین صنعت"
             >
               با ما در تماس باشید
-              <span className="mr-3">←</span>
+              <span aria-hidden="true" className="mr-3">
+                ←
+              </span>
             </Link>
           </div>
         </Container>

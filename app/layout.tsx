@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import TopBar from "@/components/layout/TopBar";
 import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/seo/JsonLd";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -13,26 +14,21 @@ const vazirmatn = Vazirmatn({
   display: "swap",
 });
 
-const siteName = "تکنو ماشین";
-
-const siteDescription =
-  "تکنو ماشین در زمینه تأمین و ارائه ماشین‌آلات صنعتی و تجهیزات معدنی، ماشین‌آلات خردایش، سنگ‌شکن، هیدروکن، ماسه‌ساز، سرند و نوار نقاله فعالیت می‌کند.";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
-  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
+  metadataBase: new URL(SITE_URL),
 
   title: {
-    default: `${siteName} | ماشین‌آلات صنعتی و تجهیزات معدنی`,
-    template: `%s | ${siteName}`,
+    default: "تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی",
+    template: "%s | تکنو ماشین صنعت",
   },
 
-  description: siteDescription,
-
-  applicationName: siteName,
+  description:
+    "تکنو ماشین صنعت، تأمین‌کننده ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه‌دهنده خدمات فنی و مهندسی برای پروژه‌های صنعتی و معدنی.",
 
   keywords: [
+    "تکنو ماشین صنعت",
     "تکنو ماشین",
     "ماشین آلات صنعتی",
     "ماشین آلات معدنی",
@@ -44,25 +40,55 @@ export const metadata: Metadata = {
     "سرند",
     "نوار نقاله",
     "خط خردایش",
-    "تجهیزات خردایش",
-    "ماشین آلات سنگ شکن",
+    "قطعات سنگ شکن",
+    "تجهیزات صنعتی",
   ],
 
   authors: [
     {
-      name: siteName,
+      name: "تکنو ماشین صنعت",
     },
   ],
 
-  creator: siteName,
-  publisher: siteName,
+  creator: "تکنو ماشین صنعت",
+  publisher: "تکنو ماشین صنعت",
+
+  applicationName: "تکنو ماشین صنعت",
+
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: false,
+  },
 
   alternates: {
-    ...(siteUrl
-      ? {
-          canonical: siteUrl,
-        }
-      : {}),
+    canonical: "/",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "fa_IR",
+    url: SITE_URL,
+    siteName: "تکنو ماشین صنعت",
+    title: "تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی",
+    description:
+      "تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه خدمات فنی و مهندسی توسط تکنو ماشین صنعت.",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی",
+    description:
+      "تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و خدمات فنی و مهندسی.",
+    images: ["/images/og-image.jpg"],
   },
 
   robots: {
@@ -75,41 +101,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
       "max-video-preview": -1,
     },
-  },
-
-  openGraph: {
-    type: "website",
-    locale: "fa_IR",
-    siteName,
-    title: `${siteName} | ماشین‌آلات صنعتی و تجهیزات معدنی`,
-    description: siteDescription,
-
-    ...(siteUrl
-      ? {
-          url: siteUrl,
-        }
-      : {}),
-
-    images: [
-      {
-        url: "/images/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: `${siteName} | ماشین‌آلات صنعتی و تجهیزات معدنی`,
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteName} | ماشین‌آلات صنعتی و تجهیزات معدنی`,
-    description: siteDescription,
-
-    images: ["/images/og-image.jpg"],
-  },
-
-  icons: {
-    icon: "/favicon.ico",
   },
 };
 
@@ -126,7 +117,59 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Organization",
+                "@id": `${SITE_URL}/#organization`,
+                name: "تکنو ماشین صنعت",
+                url: SITE_URL,
+
+                logo: {
+                  "@type": "ImageObject",
+                  url: `${SITE_URL}/images/IMG_5071.PNG`,
+                },
+
+                email: "mohammad.mousaviii79@gmail.com",
+
+                telephone: ["+989126445695", "+989125094307"],
+
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "شهریار",
+                  addressRegion: "تهران",
+                  addressCountry: "IR",
+                  streetAddress:
+                    "جنب پمپ بنزین شاهد شهر، خیابان معاینه فنی، پلاک 6",
+                },
+
+                sameAs: [
+                  "https://www.instagram.com/techno_machine.co/",
+                  "https://wa.me/989126445695",
+                  "https://t.me/989126445695",
+                ],
+              },
+
+              {
+                "@type": "WebSite",
+                "@id": `${SITE_URL}/#website`,
+                url: SITE_URL,
+                name: "تکنو ماشین صنعت",
+
+                publisher: {
+                  "@id": `${SITE_URL}/#organization`,
+                },
+
+                inLanguage: "fa-IR",
+              },
+            ],
+          }}
+        />
+
         <TopBar />
+
         <Header />
 
         <main>{children}</main>
