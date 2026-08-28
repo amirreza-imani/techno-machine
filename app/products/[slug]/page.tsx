@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -50,6 +51,7 @@ function getBreadcrumbSchema(productTitle: string, slug: string) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+
     itemListElement: [
       {
         "@type": "ListItem",
@@ -84,6 +86,9 @@ function getProductSchema(product: Product) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
+
+    "@id": `${productUrl}#product`,
+
     name: product.title,
 
     description:
@@ -120,6 +125,10 @@ export async function generateMetadata({
     return {
       title: "محصول پیدا نشد",
       description: "محصول مورد نظر شما پیدا نشد.",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
@@ -128,6 +137,8 @@ export async function generateMetadata({
     `مشاهده مشخصات و اطلاعات ${product.title} در تکنو ماشین صنعت.`;
 
   const productImage = getStrapiMediaUrl(product.image?.url);
+
+  const productUrl = `${SITE_URL}/products/${product.slug}`;
 
   return {
     title: product.title,
@@ -142,7 +153,9 @@ export async function generateMetadata({
       title: product.title,
       description,
       type: "website",
-      url: `/products/${product.slug}`,
+      url: productUrl,
+      locale: "fa_IR",
+      siteName: "تکنو ماشین صنعت",
 
       ...(productImage
         ? {
@@ -166,6 +179,18 @@ export async function generateMetadata({
             images: [productImage],
           }
         : {}),
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
     },
   };
 }
@@ -225,6 +250,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <main dir="rtl">
+      {/* =====================================================
+          Breadcrumb
+          ===================================================== */}
+
       <BreadcrumbJsonLd
         items={[
           {
@@ -240,6 +269,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           },
         ]}
       />
+
       {/* =====================================================
           SEO Structured Data
           ===================================================== */}
@@ -253,14 +283,18 @@ export default async function ProductPage({ params }: ProductPageProps) {
           ===================================================== */}
 
       <section className="relative overflow-hidden bg-brand-black">
-        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl"
+        />
 
-        <div className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-white/5 blur-3xl" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-white/5 blur-3xl"
+        />
 
         <Container>
           <div className="relative py-12 md:py-16">
-            {/* Breadcrumb */}
-
             <nav
               aria-label="مسیر صفحه"
               className="mb-7 flex flex-wrap items-center gap-2 text-xs text-white/40"
@@ -348,8 +382,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   {product.shortDescription}
                 </p>
               )}
-
-              {/* CTA */}
 
               <div className="mt-8 rounded-xl border border-border-theme bg-gradient-to-br from-[#f5f5f2] to-white p-6 shadow-sm dark:border-white/10 dark:from-brand-black dark:to-[#171717]">
                 <div className="text-sm font-black text-foreground">
@@ -446,11 +478,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     key={image.id}
                     className="group overflow-hidden rounded-xl border border-border-theme bg-surface-soft"
                   >
-                    <div className="aspect-[4/3] overflow-hidden">
-                      <img
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <Image
                         src={imageUrl}
                         alt={image.alternativeText || product.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   </div>
@@ -503,10 +537,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     >
                       <div className="relative aspect-[4/3] overflow-hidden light:bg-white dark:bg-brand-charcoal">
                         {imageUrl ? (
-                          <img
+                          <Image
                             src={imageUrl}
                             alt={item.image?.alternativeText || item.title}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                         ) : (
                           <div className="flex h-full items-center justify-center">

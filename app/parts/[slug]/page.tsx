@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Container from "@/components/Container";
 import { getPartBySlug } from "@/lib/strapi";
 import JsonLd from "@/components/seo/JsonLd";
+import type { Metadata } from "next";
 
 interface PartPageProps {
   params: Promise<{
@@ -16,6 +17,70 @@ const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+export async function generateMetadata({
+  params,
+}: PartPageProps): Promise<Metadata> {
+  const { slug } = await params;
+
+  const part = await getPartBySlug(slug);
+
+  if (!part) {
+    return {
+      title: "قطعه پیدا نشد",
+      description: "قطعه مورد نظر شما پیدا نشد.",
+    };
+  }
+
+  const description =
+    part.shortDescription ||
+    `مشاهده مشخصات و اطلاعات ${part.title} از تکنو ماشین صنعت.`;
+
+  const imageUrl = part.image?.url
+    ? part.image.url.startsWith("http")
+      ? part.image.url
+      : `${STRAPI_URL}${part.image.url}`
+    : null;
+
+  return {
+    title: part.title,
+    description,
+
+    alternates: {
+      canonical: `/parts/${part.slug}`,
+    },
+
+    openGraph: {
+      title: part.title,
+      description,
+      type: "website",
+      url: `${SITE_URL}/parts/${part.slug}`,
+
+      ...(imageUrl
+        ? {
+            images: [
+              {
+                url: imageUrl,
+                alt: part.image?.alternativeText || part.title,
+              },
+            ],
+          }
+        : {}),
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: part.title,
+      description,
+
+      ...(imageUrl
+        ? {
+            images: [imageUrl],
+          }
+        : {}),
+    },
+  };
+}
 
 export default async function PartPage({ params }: PartPageProps) {
   const { slug } = await params;
