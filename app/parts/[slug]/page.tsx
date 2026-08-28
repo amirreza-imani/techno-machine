@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 import Container from "@/components/Container";
-import { getPartBySlug } from "@/lib/strapi";
 import JsonLd from "@/components/seo/JsonLd";
-import type { Metadata } from "next";
+import { getPartBySlug } from "@/lib/strapi";
 
 interface PartPageProps {
   params: Promise<{
@@ -18,32 +18,50 @@ const STRAPI_URL =
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
+function getStrapiMediaUrl(url?: string | null) {
+  if (!url) {
+    return null;
+  }
+
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  return `${STRAPI_URL}${url}`;
+}
+
+/* =========================================================
+   Metadata
+   ========================================================= */
+
 export async function generateMetadata({
   params,
 }: PartPageProps): Promise<Metadata> {
   const { slug } = await params;
-
   const part = await getPartBySlug(slug);
 
   if (!part) {
     return {
-      title: "قطعه پیدا نشد",
-      description: "قطعه مورد نظر شما پیدا نشد.",
+      title: "قطعه پیدا نشد | تکنو ماشین صنعت",
+      description: "قطعه مورد نظر شما در تکنو ماشین صنعت پیدا نشد.",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
   const description =
-    part.shortDescription ||
+    part.shortDescription?.trim() ||
     `مشاهده مشخصات و اطلاعات ${part.title} از تکنو ماشین صنعت.`;
 
-  const imageUrl = part.image?.url
-    ? part.image.url.startsWith("http")
-      ? part.image.url
-      : `${STRAPI_URL}${part.image.url}`
-    : null;
+  const imageUrl = getStrapiMediaUrl(part.image?.url);
+
+  const canonicalUrl = `${SITE_URL}/parts/${part.slug}`;
 
   return {
-    title: part.title,
+    title: `${part.title} | تکنو ماشین صنعت`,
+
     description,
 
     alternates: {
@@ -51,17 +69,19 @@ export async function generateMetadata({
     },
 
     openGraph: {
-      title: part.title,
+      title: `${part.title} | تکنو ماشین صنعت`,
       description,
       type: "website",
-      url: `${SITE_URL}/parts/${part.slug}`,
+      url: canonicalUrl,
+      locale: "fa_IR",
+      siteName: "تکنو ماشین صنعت",
 
       ...(imageUrl
         ? {
             images: [
               {
                 url: imageUrl,
-                alt: part.image?.alternativeText || part.title,
+                alt: part.image?.alternativeText || `تصویر ${part.title}`,
               },
             ],
           }
@@ -69,8 +89,8 @@ export async function generateMetadata({
     },
 
     twitter: {
-      card: "summary_large_image",
-      title: part.title,
+      card: imageUrl ? "summary_large_image" : "summary",
+      title: `${part.title} | تکنو ماشین صنعت`,
       description,
 
       ...(imageUrl
@@ -82,6 +102,10 @@ export async function generateMetadata({
   };
 }
 
+/* =========================================================
+   Page
+   ========================================================= */
+
 export default async function PartPage({ params }: PartPageProps) {
   const { slug } = await params;
 
@@ -91,17 +115,18 @@ export default async function PartPage({ params }: PartPageProps) {
     notFound();
   }
 
-  const imageUrl = part.image?.url
-    ? part.image.url.startsWith("http")
-      ? part.image.url
-      : `${STRAPI_URL}${part.image.url}`
-    : null;
+  const imageUrl = getStrapiMediaUrl(part.image?.url);
 
   const partUrl = `${SITE_URL}/parts/${part.slug}`;
+
+  /* =========================================================
+     Breadcrumb JSON-LD
+     ========================================================= */
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+
     itemListElement: [
       {
         "@type": "ListItem",
@@ -124,12 +149,49 @@ export default async function PartPage({ params }: PartPageProps) {
     ],
   };
 
+  /* =========================================================
+     WebPage JSON-LD
+     ========================================================= */
+
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+
+    "@id": `${partUrl}#webpage`,
+
+    url: partUrl,
+
+    name: `${part.title} | تکنو ماشین صنعت`,
+
+    description:
+      part.shortDescription ||
+      `مشاهده مشخصات و اطلاعات ${part.title} از تکنو ماشین صنعت.`,
+
+    inLanguage: "fa-IR",
+
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "تکنو ماشین صنعت",
+      url: SITE_URL,
+    },
+
+    about: {
+      "@type": "Thing",
+      name: part.title,
+    },
+  };
+
   return (
     <>
       <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={webPageJsonLd} />
 
       <main dir="rtl">
-        {/* Hero */}
+        {/* =====================================================
+            Hero
+        ===================================================== */}
+
         <section className="bg-brand-black py-16 text-white md:py-24">
           <Container>
             <div className="max-w-4xl">
@@ -156,11 +218,15 @@ export default async function PartPage({ params }: PartPageProps) {
           </Container>
         </section>
 
-        {/* Content */}
+        {/* =====================================================
+            Content
+        ===================================================== */}
+
         <section className="bg-surface-soft py-16 transition-colors duration-300 md:py-24">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
               {/* Image */}
+
               <div className="overflow-hidden rounded-2xl border border-border-theme light:white dark:bg-brand-charcoal">
                 <div className="relative aspect-[4/3]">
                   {imageUrl ? (
@@ -182,6 +248,7 @@ export default async function PartPage({ params }: PartPageProps) {
               </div>
 
               {/* Information */}
+
               <div className="rounded-2xl border border-border-theme bg-surface p-7 shadow-sm md:p-9">
                 <span className="text-sm font-bold text-brand-gold">
                   مشخصات قطعه
@@ -217,7 +284,10 @@ export default async function PartPage({ params }: PartPageProps) {
           </Container>
         </section>
 
-        {/* CTA */}
+        {/* =====================================================
+            CTA
+        ===================================================== */}
+
         <section className="bg-[#f3f3f0] py-16 text-brand-black transition-colors duration-300 dark:bg-brand-black dark:text-white md:py-20">
           <Container>
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">

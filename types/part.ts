@@ -1,10 +1,12 @@
-export type Part = {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  shortDescription: string;
-  image?: StrapiMedia | null;
+export type StrapiMediaFormat = {
+  name?: string;
+  hash?: string;
+  ext?: string;
+  mime?: string;
+  width: number;
+  height: number;
+  size: number;
+  url: string;
 };
 
 export type StrapiMedia = {
@@ -24,15 +26,13 @@ export type StrapiMedia = {
   };
 };
 
-export type StrapiMediaFormat = {
-  name?: string;
-  hash?: string;
-  ext?: string;
-  mime?: string;
-  width: number;
-  height: number;
-  size: number;
-  url: string;
+export type Part = {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  image?: StrapiMedia | null;
 };
 
 export type StrapiResponse<T> = {

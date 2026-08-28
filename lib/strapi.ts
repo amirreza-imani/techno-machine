@@ -1,6 +1,7 @@
 import type { Product, StrapiResponse } from "@/types/product";
 import type { Part } from "@/types/part";
 import type { Project } from "@/types/project";
+
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
@@ -10,11 +11,14 @@ const STRAPI_URL =
 
 export async function getProducts(): Promise<Product[]> {
   try {
-    const response = await fetch(`${STRAPI_URL}/api/products?populate=*`, {
-      next: {
-        revalidate: 60,
+    const response = await fetch(
+      `${STRAPI_URL}/api/products?populate=*&pagination[pageSize]=100`,
+      {
+        next: {
+          revalidate: 60,
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -26,7 +30,7 @@ export async function getProducts(): Promise<Product[]> {
 
     const result: StrapiResponse<Product[]> = await response.json();
 
-    return result.data;
+    return result.data ?? [];
   } catch (error) {
     console.error("Strapi products fetch error:", error);
 
@@ -37,7 +41,7 @@ export async function getProducts(): Promise<Product[]> {
 export async function getFeaturedProducts(): Promise<Product[]> {
   const products = await getProducts();
 
-  return products.filter((product) => product.featured);
+  return products.filter((product) => product.featured).slice(0, 3);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -57,7 +61,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
       const errorText = await response.text();
 
       console.error(
-        `Failed to fetch product "${slug}".`,
+        `Failed to fetch product "${slug}":`,
         response.status,
         errorText,
       );
@@ -69,7 +73,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 
     const result: StrapiResponse<Product[]> = await response.json();
 
-    return result.data[0] || null;
+    return result.data?.[0] ?? null;
   } catch (error) {
     console.error("Strapi product fetch error:", error);
 
@@ -83,7 +87,10 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 
 export async function getParts(): Promise<Part[]> {
   try {
-    const url = `${STRAPI_URL}/api/part?populate=image&pagination[pageSize]=100`;
+    const url =
+      `${STRAPI_URL}/api/part` +
+      `?populate=image` +
+      `&pagination[pageSize]=100`;
 
     const response = await fetch(url, {
       next: {
@@ -99,9 +106,7 @@ export async function getParts(): Promise<Part[]> {
       throw new Error(`Failed to fetch parts. Status: ${response.status}`);
     }
 
-    const result = await response.json();
-
-    console.log("PARTS RESPONSE:", JSON.stringify(result, null, 2));
+    const result: StrapiResponse<Part[]> = await response.json();
 
     return result.data ?? [];
   } catch (error) {
@@ -128,7 +133,7 @@ export async function getPartBySlug(slug: string): Promise<Part | null> {
       const errorText = await response.text();
 
       console.error(
-        `Failed to fetch part "${slug}".`,
+        `Failed to fetch part "${slug}":`,
         response.status,
         errorText,
       );
@@ -138,9 +143,7 @@ export async function getPartBySlug(slug: string): Promise<Part | null> {
       );
     }
 
-    const result = await response.json();
-
-    console.log("PART BY SLUG RESPONSE:", JSON.stringify(result, null, 2));
+    const result: StrapiResponse<Part[]> = await response.json();
 
     return result.data?.[0] ?? null;
   } catch (error) {
@@ -156,11 +159,14 @@ export async function getPartBySlug(slug: string): Promise<Part | null> {
 
 export async function getProjects(): Promise<Project[]> {
   try {
-    const response = await fetch(`${STRAPI_URL}/api/projects?populate=*`, {
-      next: {
-        revalidate: 60,
+    const response = await fetch(
+      `${STRAPI_URL}/api/projects?populate=*&pagination[pageSize]=100`,
+      {
+        next: {
+          revalidate: 60,
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -172,7 +178,7 @@ export async function getProjects(): Promise<Project[]> {
 
     const result: StrapiResponse<Project[]> = await response.json();
 
-    return result.data;
+    return result.data ?? [];
   } catch (error) {
     console.error("Strapi projects fetch error:", error);
 
@@ -198,7 +204,9 @@ export type SiteSettings = {
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
     const response = await fetch(`${STRAPI_URL}/api/site-settings`, {
-      cache: "no-store",
+      next: {
+        revalidate: 300,
+      },
     });
 
     if (!response.ok) {
@@ -211,13 +219,9 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
       return null;
     }
 
-    const json = await response.json();
+    const json: { data?: SiteSettings | null } = await response.json();
 
-    if (!json.data) {
-      return null;
-    }
-
-    return json.data;
+    return json.data ?? null;
   } catch (error) {
     console.error("Failed to fetch site settings:", error);
 
