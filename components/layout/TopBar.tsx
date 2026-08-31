@@ -4,8 +4,8 @@ import { getSiteSettings } from "@/lib/strapi";
 export default async function TopBar() {
   const settings = await getSiteSettings();
 
-  const phone = settings?.phone || "09126445695";
-  const email = settings?.email || "mohammad.mousaviii79@gmail.com";
+  const phone = settings?.phone || "021-88776655";
+  const email = settings?.email || "info@technomachine.ir";
 
   return (
     <div className="hidden border-b border-gray-100 bg-brand-black text-white/70 lg:block">
