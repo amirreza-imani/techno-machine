@@ -12,7 +12,7 @@ async function build() {
 
 		await execAsync('next build', async (error, stdout, stderr) => {
 			if (error) {
-				console.error(`Error during build: ${error.message}`);
+				console.error('\x1b[31m', `Error during build: ${error.message}`);
 			}
 			if (stderr) {
 				console.error(`Build stderr: ${stderr}`);
@@ -23,9 +23,11 @@ async function build() {
 
 			await cp('.next/standalone', 'build', { recursive: true });
 			await cp('.next/static', 'build/.next/static', { recursive: true });
+
+			console.log('\x1b[34m', 'Build completed successfully.');
 		});
 	} catch (error) {
-		console.error('Error cleaning up directories:', error);
+		console.error('\x1b[31m', 'Error cleaning up directories:', error);
 	}
 }
 
