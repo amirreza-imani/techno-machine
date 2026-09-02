@@ -115,7 +115,9 @@ export default function Header() {
           <div className="hidden shrink-0 items-center gap-3 lg:flex">
             <ThemeToggle />
 
-            <Button>استعلام قیمت</Button>
+            <Link href="/contact">
+              <Button>استعلام قیمت</Button>
+            </Link>
           </div>
 
           {/* Mobile Actions */}
@@ -236,7 +238,9 @@ export default function Header() {
                 </span>
               </div>
 
-              <Button>استعلام قیمت</Button>
+              <Link href="/contact" onClick={closeMenu}>
+                <Button>استعلام قیمت</Button>
+              </Link>
             </div>
           </nav>
         </div>

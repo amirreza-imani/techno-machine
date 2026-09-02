@@ -162,7 +162,7 @@ export default async function Home() {
                   />
 
                   <span className="text-sm font-bold text-brand-gold">
-                    تکنو ماشین صنعت
+                    تکنو ماشین 
                   </span>
                 </div>
 
