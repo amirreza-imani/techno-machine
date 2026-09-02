@@ -21,7 +21,8 @@ async function build() {
 
 			await mkdir('build');
 
-			await cp('.next/standalone', 'build', { recursive: true });
+			await cp('public', 'build/public', { recursive: true });
+			await cp('.next/standalone', 'build', { recursive: true, filter: (src) => !src.includes('node_modules') });
 			await cp('.next/static', 'build/.next/static', { recursive: true });
 
 			console.log('\x1b[34m', 'Build completed successfully.');
