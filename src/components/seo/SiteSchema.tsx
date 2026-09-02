@@ -2,7 +2,7 @@ import JsonLd from './JsonLd';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
-const SITE_NAME = 'تکنو ماشین صنعت';
+const SITE_NAME = 'تکنو ماشین ';
 
 const PHONE_1 = '09126445695';
 const PHONE_2 = '09125094307';
@@ -24,7 +24,7 @@ export default function SiteSchema() {
 		url: SITE_URL,
 		email: EMAIL,
 		telephone: PHONE_1,
-		description: 'تکنو ماشین صنعت، فعال در زمینه تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه راهکارهای فنی و مهندسی.',
+		description: 'تکنو ماشین  فعال در زمینه تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه راهکارهای فنی و مهندسی.',
 		address: {
 			'@type': 'PostalAddress',
 			addressLocality: 'شهریار',
@@ -55,7 +55,7 @@ export default function SiteSchema() {
 		'@id': `${SITE_URL}/#website`,
 		url: SITE_URL,
 		name: SITE_NAME,
-		description: 'تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه خدمات فنی و مهندسی توسط تکنو ماشین صنعت.',
+		description: 'تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه خدمات فنی و مهندسی توسط تکنو ماشین .',
 		publisher: {
 			'@id': `${SITE_URL}/#organization`,
 		},

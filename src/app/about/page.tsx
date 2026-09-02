@@ -239,7 +239,7 @@ export default function AboutPage() {
                 <span className="h-px w-8 bg-brand-gold" />
 
                 <span className="text-sm font-bold text-brand-gold">
-                  چرا تکنو ماشین صنعت؟
+                  چرا تکنو ماشین ؟
                 </span>
               </div>
 

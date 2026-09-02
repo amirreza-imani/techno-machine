@@ -29,7 +29,7 @@ export default function ServicesHero() {
             </h1>
 
             <p className="mt-7 max-w-2xl text-base leading-8 text-gray-300 md:text-lg">
-              از طراحی و تولید تجهیزات تا تأمین، نصب و پشتیبانی؛ تکنو ماشین صنعت
+              از طراحی و تولید تجهیزات تا تأمین، نصب و پشتیبانی؛ تکنو ماشین 
               در تمام مراحل پروژه در کنار شماست.
             </p>
 

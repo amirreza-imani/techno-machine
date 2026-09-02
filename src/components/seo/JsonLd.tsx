@@ -1,5 +1,5 @@
 type JsonLdProps = {
-  data: object;
+  data: Record<string, unknown>;
 };
 
 export default function JsonLd({ data }: JsonLdProps) {

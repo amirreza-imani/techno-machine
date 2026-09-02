@@ -39,8 +39,8 @@ export async function generateMetadata({ params }: PartPageProps): Promise<Metad
 
 	if (!part) {
 		return {
-			title: 'قطعه پیدا نشد | تکنو ماشین صنعت',
-			description: 'قطعه مورد نظر شما در تکنو ماشین صنعت پیدا نشد.',
+			title: 'قطعه پیدا نشد | تکنو ماشین ',
+			description: 'قطعه مورد نظر شما در تکنو ماشین  پیدا نشد.',
 			robots: {
 				index: false,
 				follow: false,
@@ -48,14 +48,14 @@ export async function generateMetadata({ params }: PartPageProps): Promise<Metad
 		};
 	}
 
-	const description = part.shortDescription?.trim() || `مشاهده مشخصات و اطلاعات ${part.title} از تکنو ماشین صنعت.`;
+	const description = part.shortDescription?.trim() || `مشاهده مشخصات و اطلاعات ${part.title} از تکنو ماشین .`;
 
 	const imageUrl = getStrapiMediaUrl(part.image?.url);
 
 	const canonicalUrl = `${SITE_URL}/parts/${part.slug}`;
 
 	return {
-		title: `${part.title} | تکنو ماشین صنعت`,
+		title: `${part.title} | تکنو ماشین `,
 
 		description,
 
@@ -64,12 +64,12 @@ export async function generateMetadata({ params }: PartPageProps): Promise<Metad
 		},
 
 		openGraph: {
-			title: `${part.title} | تکنو ماشین صنعت`,
+			title: `${part.title} | تکنو ماشین `,
 			description,
 			type: 'website',
 			url: canonicalUrl,
 			locale: 'fa_IR',
-			siteName: 'تکنو ماشین صنعت',
+			siteName: 'تکنو ماشین ',
 
 			...(imageUrl
 				? {
@@ -85,7 +85,7 @@ export async function generateMetadata({ params }: PartPageProps): Promise<Metad
 
 		twitter: {
 			card: imageUrl ? 'summary_large_image' : 'summary',
-			title: `${part.title} | تکنو ماشین صنعت`,
+			title: `${part.title} | تکنو ماشین `,
 			description,
 
 			...(imageUrl
@@ -156,16 +156,16 @@ export default async function PartPage({ params }: PartPageProps) {
 
 		url: partUrl,
 
-		name: `${part.title} | تکنو ماشین صنعت`,
+		name: `${part.title} | تکنو ماشین `,
 
-		description: part.shortDescription || `مشاهده مشخصات و اطلاعات ${part.title} از تکنو ماشین صنعت.`,
+		description: part.shortDescription || `مشاهده مشخصات و اطلاعات ${part.title} از تکنو ماشین .`,
 
 		inLanguage: 'fa-IR',
 
 		isPartOf: {
 			'@type': 'WebSite',
 			'@id': `${SITE_URL}/#website`,
-			name: 'تکنو ماشین صنعت',
+			name: 'تکنو ماشین ',
 			url: SITE_URL,
 		},
 

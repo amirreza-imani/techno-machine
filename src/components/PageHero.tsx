@@ -64,7 +64,7 @@ export default function PageHero({
               {/* Small label */}
               <div className="absolute bottom-6 right-6 rounded-lg border border-white/10 bg-brand-black/70 px-4 py-2 backdrop-blur-md">
                 <span className="text-xs font-bold text-brand-gold">
-                  تکنو ماشین صنعت
+                  تکنو ماشین 
                 </span>
               </div>
             </div>
