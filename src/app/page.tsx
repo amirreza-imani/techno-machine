@@ -207,9 +207,9 @@ export default async function Home() {
 
                 {/* Stats */}
 
-                <div className="mt-12 flex flex-wrap gap-x-10 gap-y-5 border-t border-white/10 pt-7">
-                  <div>
-                    <div className="text-2xl font-black text-white">۱۰+</div>
+								<div className='mt-12 flex flex-wrap gap-x-10 gap-y-5 border-t border-white/10 pt-7'>
+									<div>
+										<div className='text-2xl font-black text-white'>۳۰+</div>
 
                     <div className="mt-1 text-xs text-white/40">سال تجربه</div>
                   </div>
