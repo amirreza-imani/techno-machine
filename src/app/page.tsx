@@ -6,9 +6,9 @@ import Container from '@/components/Container';
 import JsonLd from '@/components/seo/JsonLd';
 import { getProducts } from '@/lib/strapi';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
 /* =========================================================
    Metadata
@@ -143,7 +143,7 @@ export default async function Home() {
 								<div className='mb-6 flex items-center gap-3'>
 									<span aria-hidden='true' className='h-px w-10 bg-brand-gold' />
 
-									<span className='text-sm font-bold text-brand-gold'>تکنو ماشین صنعت</span>
+									<span className='text-sm font-bold text-brand-gold'>تکنو ماشین</span>
 								</div>
 
 								<h1 id='home-hero-title' className='max-w-3xl text-4xl font-black leading-[1.3] text-white sm:text-5xl lg:text-6xl'>
