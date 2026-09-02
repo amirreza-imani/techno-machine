@@ -16,7 +16,7 @@ const STRAPI_URL =
 ========================================================= */
 
 export const metadata: Metadata = {
-  title: "تکنو ماشین صنعت | ماشین‌آلات و تجهیزات صنعتی و معدنی",
+	title: 'تکنو ماشین | ماشین‌آلات و تجهیزات صنعتی و معدنی',
 
   description:
     "تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی همراه با خدمات فنی و مهندسی و راهکارهای متناسب با نیاز پروژه.",
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
 
-  openGraph: {
-    title: "تکنو ماشین صنعت | ماشین‌آلات و تجهیزات صنعتی و معدنی",
+	openGraph: {
+		title: 'تکنو ماشین | ماشین‌آلات و تجهیزات صنعتی و معدنی',
 
     description:
       "تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی.",
@@ -37,20 +37,20 @@ export const metadata: Metadata = {
 
     locale: "fa_IR",
 
-    siteName: "تکنو ماشین صنعت",
+		siteName: 'تکنو ماشین',
 
-    images: [
-      {
-        url: `${SITE_URL}/images/IMG_5071.PNG`,
-        alt: "لوگوی تکنو ماشین صنعت",
-      },
-    ],
-  },
+		images: [
+			{
+				url: `${SITE_URL}/images/IMG_5071.PNG`,
+				alt: 'لوگوی تکنو ماشین',
+			},
+		],
+	},
 
   twitter: {
     card: "summary_large_image",
 
-    title: "تکنو ماشین صنعت | ماشین‌آلات و تجهیزات صنعتی و معدنی",
+		title: 'تکنو ماشین | ماشین‌آلات و تجهیزات صنعتی و معدنی',
 
     description:
       "تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی.",
@@ -96,7 +96,7 @@ export default async function Home() {
 
     "@id": `${SITE_URL}/#organization`,
 
-    name: "تکنو ماشین صنعت",
+		name: 'تکنو ماشین',
 
     url: SITE_URL,
 
@@ -112,7 +112,7 @@ export default async function Home() {
 
     "@id": `${SITE_URL}/#website`,
 
-    name: "تکنو ماشین صنعت",
+		name: 'تکنو ماشین',
 
     url: SITE_URL,
 
@@ -246,15 +246,8 @@ export default async function Home() {
                         className="absolute h-[280px] w-[280px] rounded-full border border-brand-gold/10"
                       />
 
-                      <div className="text-center">
-                        <Image
-                          src="/images/IMG_5071.PNG"
-                          alt="لوگوی تکنو ماشین صنعت"
-                          width={192}
-                          height={192}
-                          priority
-                          className="mx-auto h-auto w-48 object-contain"
-                        />
+											<div className='text-center'>
+												<Image src='/images/IMG_5071.PNG' alt='لوگوی تکنو ماشین' width={192} height={192} priority className='mx-auto h-auto w-48 object-contain' />
 
                         <div className="mt-2 text-xs font-bold tracking-[0.3em] text-white/30">
                           INDUSTRIAL SOLUTIONS
@@ -315,11 +308,9 @@ export default async function Home() {
                   <span className="block">راهکار قابل اعتماد.</span>
                 </h2>
 
-                <p className="mt-6 max-w-2xl text-sm leading-8 text-foreground-soft md:text-base">
-                  تکنو ماشین صنعت در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات
-                  تخصصی برای صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه
-                  راهکارهای مطمئن، تخصصی و متناسب با نیاز واقعی هر پروژه است.
-                </p>
+								<p className='mt-6 max-w-2xl text-sm leading-8 text-foreground-soft md:text-base'>
+									تکنو ماشین در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه راهکارهای مطمئن، تخصصی و متناسب با نیاز واقعی هر پروژه است.
+								</p>
 
                 <Link
                   href="/about"
@@ -497,40 +488,27 @@ export default async function Home() {
                 {featuredProducts.map((product) => {
                   const imageUrl = getStrapiMediaUrl(product.image?.url);
 
-                  return (
-                    <article
-                      key={product.documentId}
-                      className="group overflow-hidden rounded-xl border border-border-theme bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-xl"
-                    >
-                      <Link
-                        href={`/products/${product.slug}`}
-                        aria-label={`مشاهده ${product.title}`}
-                        className="block"
-                      >
-                        <div className="relative aspect-[4/3] overflow-hidden bg-white dark:bg-brand-charcoal">
-                          {imageUrl ? (
-                            <img
-                              src={imageUrl}
-                              alt={
-                                product.image?.alternativeText ||
-                                `تصویر ${product.title}`
-                              }
-                              loading="lazy"
-                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          ) : (
-                            <div className="flex h-full items-center justify-center">
-                              <Image
-                                src="/images/IMG_5071.PNG"
-                                alt="تکنو ماشین صنعت"
-                                width={220}
-                                height={220}
-                                className="h-auto w-full max-w-[220px] object-contain"
-                              />
-                            </div>
-                          )}
-                        </div>
-                      </Link>
+									return (
+										<article
+											key={product.documentId}
+											className='group overflow-hidden rounded-xl border border-border-theme bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-xl'
+										>
+											<Link href={`/products/${product.slug}`} aria-label={`مشاهده ${product.title}`} className='block'>
+												<div className='relative aspect-[4/3] overflow-hidden bg-white dark:bg-brand-charcoal'>
+													{imageUrl ? (
+														<img
+															src={imageUrl}
+															alt={product.image?.alternativeText || `تصویر ${product.title}`}
+															loading='lazy'
+															className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
+														/>
+													) : (
+														<div className='flex h-full items-center justify-center'>
+															<Image src='/images/IMG_5071.PNG' alt='تکنو ماشین' width={220} height={220} className='h-auto w-full max-w-[220px] object-contain' />
+														</div>
+													)}
+												</div>
+											</Link>
 
                       <div className="p-6">
                         {product.featured && (
@@ -675,20 +653,20 @@ export default async function Home() {
                 </h2>
               </div>
 
-              <Link
-                href="/contact"
-                className="inline-flex h-12 shrink-0 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-brand-black transition-all hover:bg-brand-gold-light"
-                aria-label="تماس با تکنو ماشین صنعت"
-              >
-                با ما در تماس باشید
-                <span aria-hidden="true" className="mr-3">
-                  ←
-                </span>
-              </Link>
-            </div>
-          </Container>
-        </section>
-      </main>
-    </>
-  );
+							<Link
+								href='/contact'
+								className='inline-flex h-12 shrink-0 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-brand-black transition-all hover:bg-brand-gold-light'
+								aria-label='تماس با تکنو ماشین'
+							>
+								با ما در تماس باشید
+								<span aria-hidden='true' className='mr-3'>
+									←
+								</span>
+							</Link>
+						</div>
+					</Container>
+				</section>
+			</main>
+		</>
+	);
 }

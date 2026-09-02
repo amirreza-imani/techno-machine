@@ -1,5 +1,5 @@
 export const heroData = {
-  eyebrow: "تکنو ماشین صنعت",
+  eyebrow: "تکنو ماشین",
 
   title: "تجهیزات خردایش و دانه‌بندی",
 
@@ -18,7 +18,7 @@ export const heroData = {
 
   image: {
     src: "/images/hero/hero-industrial.jpg",
-    alt: "خط خردایش و تجهیزات صنعتی تکنو ماشین صنعت",
+    alt: "خط خردایش و تجهیزات صنعتی تکنو ماشین",
   },
 
   benefits: ["کیفیت ساخت بالا", "خدمات پس از فروش", "مشاوره تخصصی"],

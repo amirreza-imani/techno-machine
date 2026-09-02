@@ -20,14 +20,14 @@ export const metadata: Metadata = {
 	metadataBase: new URL(SITE_URL),
 
 	title: {
-		default: 'تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی',
-		template: '%s | تکنو ماشین صنعت',
+		default: 'تکنو ماشین | ماشین‌آلات صنعتی و تجهیزات معدنی',
+		template: '%s | تکنو ماشین',
 	},
 
-	description: 'تکنو ماشین صنعت، تأمین‌کننده ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه‌دهنده خدمات فنی و مهندسی برای پروژه‌های صنعتی و معدنی.',
+	description: 'تکنو ماشین، تأمین‌کننده ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه‌دهنده خدمات فنی و مهندسی برای پروژه‌های صنعتی و معدنی.',
 
 	keywords: [
-		'تکنو ماشین صنعت',
+		'تکنو ماشین',
 		'تکنو ماشین',
 		'ماشین آلات صنعتی',
 		'ماشین آلات معدنی',
@@ -45,14 +45,14 @@ export const metadata: Metadata = {
 
 	authors: [
 		{
-			name: 'تکنو ماشین صنعت',
+			name: 'تکنو ماشین',
 		},
 	],
 
-	creator: 'تکنو ماشین صنعت',
-	publisher: 'تکنو ماشین صنعت',
+	creator: 'تکنو ماشین',
+	publisher: 'تکنو ماشین',
 
-	applicationName: 'تکنو ماشین صنعت',
+	applicationName: 'تکنو ماشین',
 
 	formatDetection: {
 		telephone: true,
@@ -68,22 +68,22 @@ export const metadata: Metadata = {
 		type: 'website',
 		locale: 'fa_IR',
 		url: SITE_URL,
-		siteName: 'تکنو ماشین صنعت',
-		title: 'تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی',
-		description: 'تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه خدمات فنی و مهندسی توسط تکنو ماشین صنعت.',
+		siteName: 'تکنو ماشین',
+		title: 'تکنو ماشین | ماشین‌آلات صنعتی و تجهیزات معدنی',
+		description: 'تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و ارائه خدمات فنی و مهندسی توسط تکنو ماشین.',
 		images: [
 			{
 				url: '/images/og-image.jpg',
 				width: 1200,
 				height: 630,
-				alt: 'تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی',
+				alt: 'تکنو ماشین | ماشین‌آلات صنعتی و تجهیزات معدنی',
 			},
 		],
 	},
 
 	twitter: {
 		card: 'summary_large_image',
-		title: 'تکنو ماشین صنعت | ماشین‌آلات صنعتی و تجهیزات معدنی',
+		title: 'تکنو ماشین | ماشین‌آلات صنعتی و تجهیزات معدنی',
 		description: 'تأمین ماشین‌آلات صنعتی و معدنی، تجهیزات، قطعات و خدمات فنی و مهندسی.',
 		images: ['/images/og-image.jpg'],
 	},
@@ -116,7 +116,7 @@ export default function RootLayout({
 							{
 								'@type': 'Organization',
 								'@id': `${SITE_URL}/#organization`,
-								name: 'تکنو ماشین صنعت',
+								name: 'تکنو ماشین',
 								url: SITE_URL,
 
 								logo: {
@@ -143,7 +143,7 @@ export default function RootLayout({
 								'@type': 'WebSite',
 								'@id': `${SITE_URL}/#website`,
 								url: SITE_URL,
-								name: 'تکنو ماشین صنعت',
+								name: 'تکنو ماشین',
 
 								publisher: {
 									'@id': `${SITE_URL}/#organization`,
