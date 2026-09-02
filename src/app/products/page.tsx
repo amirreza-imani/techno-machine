@@ -8,13 +8,13 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
 	title: 'محصولات و تجهیزات',
-	description: 'معرفی ماشین‌آلات و تجهیزات صنعتی و معدنی تکنو ماشین صنعت؛ شامل سنگ شکن، سرند، نوار نقاله، ماسه‌ساز و تجهیزات خطوط خردایش.',
+	description: 'معرفی ماشین‌آلات و تجهیزات صنعتی و معدنی تکنو ماشین؛ شامل سنگ شکن، سرند، نوار نقاله، ماسه‌ساز و تجهیزات خطوط خردایش.',
 	alternates: {
 		canonical: '/products',
 	},
 	openGraph: {
-		title: 'محصولات و تجهیزات | تکنو ماشین صنعت',
-		description: 'معرفی ماشین‌آلات و تجهیزات صنعتی و معدنی تکنو ماشین صنعت برای پروژه‌های خردایش و فرآوری.',
+		title: 'محصولات و تجهیزات | تکنو ماشین',
+		description: 'معرفی ماشین‌آلات و تجهیزات صنعتی و معدنی تکنو ماشین برای پروژه‌های خردایش و فرآوری.',
 		type: 'website',
 		url: '/products',
 		images: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 				url: '/images/products.jpg',
 				width: 1200,
 				height: 630,
-				alt: 'محصولات و تجهیزات تکنو ماشین صنعت',
+				alt: 'محصولات و تجهیزات تکنو ماشین',
 			},
 		],
 	},
@@ -64,7 +64,7 @@ export default async function ProductsPage() {
 
 						<div className='order-1 flex justify-start'>
 							<div className='relative h-[280px] w-full max-w-[440px] overflow-hidden rounded-3xl border border-white/10 bg-brand-charcoal shadow-2xl md:h-[330px]'>
-								<img src='/images/products.jpg' alt='محصولات و تجهیزات تکنو ماشین صنعت' className='h-full w-full object-cover' />
+								<img src='/images/products.jpg' alt='محصولات و تجهیزات تکنو ماشین' className='h-full w-full object-cover' />
 
 								<div aria-hidden='true' className='pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-black/60 via-transparent to-transparent' />
 
@@ -82,7 +82,7 @@ export default async function ProductsPage() {
 							<div className='mb-5 flex items-center gap-3'>
 								<span className='h-px w-8 bg-brand-gold' />
 
-								<span className='text-sm font-bold text-brand-gold'>تکنو ماشین صنعت</span>
+								<span className='text-sm font-bold text-brand-gold'>تکنو ماشین</span>
 							</div>
 
 							<h1 className='max-w-3xl text-4xl font-black leading-[1.3] text-white md:text-5xl lg:text-6xl'>محصولات و تجهیزات</h1>

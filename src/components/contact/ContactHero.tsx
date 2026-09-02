@@ -24,7 +24,7 @@ export default function ContactHero() {
             <div className="relative aspect-[4/3] w-full max-w-[440px] overflow-hidden rounded-3xl border border-white/10 bg-brand-charcoal shadow-2xl lg:h-[330px] lg:w-[440px] lg:max-w-none lg:aspect-auto">
               <Image
                 src="/images/contact-hero.png"
-                alt="ارتباط با تکنو ماشین صنعت"
+                alt="ارتباط با تکنو ماشین"
                 fill
                 priority
                 sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 440px, 440px"

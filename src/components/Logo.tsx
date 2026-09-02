@@ -14,7 +14,7 @@ export default function Logo({
   return (
     <Image
       src="/public/images/IMG_5071.PNG"
-      alt="تکنو ماشین صنعت"
+      alt="تکنو ماشین"
       width={width}
       height={height}
       className={className}

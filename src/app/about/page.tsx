@@ -58,7 +58,7 @@ export default function AboutPage() {
                 <div className="relative text-center">
                   <img
                     src="/images/IMG_5071.PNG"
-                    alt="تکنو ماشین صنعت"
+                    alt="تکنو ماشین"
                     className="h-auto w-48 object-contain"
                   />
 
@@ -239,7 +239,7 @@ export default function AboutPage() {
                 <span className="h-px w-8 bg-brand-gold" />
 
                 <span className="text-sm font-bold text-brand-gold">
-                  چرا تکنو ماشین صنعت؟
+                  چرا تکنو ماشین؟
                 </span>
               </div>
 

@@ -15,7 +15,7 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 ========================================================= */
 
 export const metadata: Metadata = {
-	title: 'تکنو ماشین صنعت | ماشین‌آلات و تجهیزات صنعتی و معدنی',
+	title: 'تکنو ماشین | ماشین‌آلات و تجهیزات صنعتی و معدنی',
 
 	description: 'تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی همراه با خدمات فنی و مهندسی و راهکارهای متناسب با نیاز پروژه.',
 
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 	},
 
 	openGraph: {
-		title: 'تکنو ماشین صنعت | ماشین‌آلات و تجهیزات صنعتی و معدنی',
+		title: 'تکنو ماشین | ماشین‌آلات و تجهیزات صنعتی و معدنی',
 
 		description: 'تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی.',
 
@@ -34,12 +34,12 @@ export const metadata: Metadata = {
 
 		locale: 'fa_IR',
 
-		siteName: 'تکنو ماشین صنعت',
+		siteName: 'تکنو ماشین',
 
 		images: [
 			{
 				url: `${SITE_URL}/images/IMG_5071.PNG`,
-				alt: 'لوگوی تکنو ماشین صنعت',
+				alt: 'لوگوی تکنو ماشین',
 			},
 		],
 	},
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 	twitter: {
 		card: 'summary_large_image',
 
-		title: 'تکنو ماشین صنعت | ماشین‌آلات و تجهیزات صنعتی و معدنی',
+		title: 'تکنو ماشین | ماشین‌آلات و تجهیزات صنعتی و معدنی',
 
 		description: 'تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی.',
 
@@ -90,7 +90,7 @@ export default async function Home() {
 
 		'@id': `${SITE_URL}/#organization`,
 
-		name: 'تکنو ماشین صنعت',
+		name: 'تکنو ماشین',
 
 		url: SITE_URL,
 
@@ -106,7 +106,7 @@ export default async function Home() {
 
 		'@id': `${SITE_URL}/#website`,
 
-		name: 'تکنو ماشین صنعت',
+		name: 'تکنو ماشین',
 
 		url: SITE_URL,
 
@@ -152,7 +152,7 @@ export default async function Home() {
 								</h1>
 
 								<p className='mt-7 max-w-xl text-sm leading-8 text-white/60 sm:text-base'>
-									تکنو ماشین صنعت در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی فعالیت می‌کند و با ارائه خدمات فنی و مهندسی، راهکارهای متناسب با نیاز پروژه‌ها ارائه می‌دهد.
+									تکنو ماشین در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی فعالیت می‌کند و با ارائه خدمات فنی و مهندسی، راهکارهای متناسب با نیاز پروژه‌ها ارائه می‌دهد.
 								</p>
 
 								<div className='mt-9 flex flex-col gap-3 sm:flex-row'>
@@ -210,7 +210,7 @@ export default async function Home() {
 											<div aria-hidden='true' className='absolute h-[280px] w-[280px] rounded-full border border-brand-gold/10' />
 
 											<div className='text-center'>
-												<Image src='/images/IMG_5071.PNG' alt='لوگوی تکنو ماشین صنعت' width={192} height={192} priority className='mx-auto h-auto w-48 object-contain' />
+												<Image src='/images/IMG_5071.PNG' alt='لوگوی تکنو ماشین' width={192} height={192} priority className='mx-auto h-auto w-48 object-contain' />
 
 												<div className='mt-2 text-xs font-bold tracking-[0.3em] text-white/30'>INDUSTRIAL SOLUTIONS</div>
 											</div>
@@ -258,7 +258,7 @@ export default async function Home() {
 								</h2>
 
 								<p className='mt-6 max-w-2xl text-sm leading-8 text-foreground-soft md:text-base'>
-									تکنو ماشین صنعت در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه راهکارهای مطمئن، تخصصی و متناسب با نیاز واقعی هر پروژه است.
+									تکنو ماشین در زمینه تأمین ماشین‌آلات، قطعات و تجهیزات تخصصی برای صنایع معدنی و صنعتی فعالیت می‌کند. تمرکز ما ارائه راهکارهای مطمئن، تخصصی و متناسب با نیاز واقعی هر پروژه است.
 								</p>
 
 								<Link href='/about' className='mt-7 inline-flex items-center text-sm font-black text-foreground transition-colors hover:text-brand-gold'>
@@ -405,7 +405,7 @@ export default async function Home() {
 														/>
 													) : (
 														<div className='flex h-full items-center justify-center'>
-															<Image src='/images/IMG_5071.PNG' alt='تکنو ماشین صنعت' width={220} height={220} className='h-auto w-full max-w-[220px] object-contain' />
+															<Image src='/images/IMG_5071.PNG' alt='تکنو ماشین' width={220} height={220} className='h-auto w-full max-w-[220px] object-contain' />
 														</div>
 													)}
 												</div>
@@ -505,7 +505,7 @@ export default async function Home() {
 							<Link
 								href='/contact'
 								className='inline-flex h-12 shrink-0 items-center justify-center rounded-sm bg-brand-gold px-7 text-sm font-black text-brand-black transition-all hover:bg-brand-gold-light'
-								aria-label='تماس با تکنو ماشین صنعت'
+								aria-label='تماس با تکنو ماشین'
 							>
 								با ما در تماس باشید
 								<span aria-hidden='true' className='mr-3'>
